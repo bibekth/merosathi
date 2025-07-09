@@ -1,0 +1,37 @@
+// Body
+$body-bg: #f8fafc;
+
+// Typography
+$font-family-sans-serif: 'Nunito', sans-serif;
+$font-size-base: 0.9rem;
+$line-height-base: 1.6;
+
+
+$primary-blue: #3B82F6;
+$light-blue: #E0F2FE;
+$accent-blue: #22D3EE;
+$dark-blue: #1E3A8A;
+$off-white: #F9FAFB;
+$text-gray: #374151;
+$border-gray: #D1D5DB;
+
+
+.custom-bg-light-blue{
+    background-color: $light-blue;
+}
+
+.custom-text-gray{
+    color: $text-gray !important;
+}
+
+.custom-border-gray{
+    border: 1px solid $border-gray;
+}
+
+.custom-text-decoration-none{
+    text-decoration: none;
+}
+
+.custom-color-inherit{
+    color: inherit !important;
+}
