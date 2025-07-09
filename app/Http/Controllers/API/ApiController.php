@@ -21,8 +21,8 @@ class ApiController extends BaseController
             }
 
             $data = json_decode($payload, true);
-            if ($data["ref"] === "refs/heads/new") {
-                exec("cd ~/public_html/lsf && git pull origin new 2>&1", $output, $returnCode);
+            if ($data["ref"] === "refs/heads/web") {
+                exec("cd ~/public_html/lsf && git pull origin web 2>&1", $output, $returnCode);
                 file_put_contents("webhook.log", implode('\n', $output), FILE_APPEND);
             }
             return response()->json('success', 200);
