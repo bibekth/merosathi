@@ -8,4 +8,4 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::post('/gitlab-webhooks', [ApiController::class, 'gitlabWebhook']);
+Route::post('/github-webhooks', [ApiController::class, 'githubWebhook']);

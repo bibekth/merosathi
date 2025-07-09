@@ -7,30 +7,27 @@ use Throwable;
 
 class ApiController extends BaseController
 {
-    public function gitlabWebhook(Request $request)
+    public function githubWebhook(Request $request)
     {
         try {
-            $secret = 'monkey@21';
-            $gitlabToken = $request->header('X-Gitlab-Token');
-
-            if ($gitlabToken !== $secret) {
-                return $this->sendError('Invalid Token', null, 403);
+            $secret = "monkey@21";
+            $payload = file_get_contents("php://input");
+            // file_put_contents("webhook_request.log", $payload, FILE_APPEND);
+            $signature = $_SERVER["HTTP_X_HUB_SIGNATURE_256"] ?? "";
+            $hash = "sha256=" . hash_hmac("sha256", $payload, $secret);
+            if (!hash_equals($hash, $signature)) {
+                http_response_code(403);
+                exit("Invalid Signature");
             }
 
-            $data = $request->all();
-
-            if (isset($data['ref']) && $data['ref'] === 'refs/heads/development') {
-                $output = [];
-                $returnCode = 0;
-
-                exec(`eval "$(ssh-agent -s)" && ssh-add ~/.ssh/merogrocery && cd ~/public_html/merogrocery && git pull origin development 2>&1`, $output, $returnCode);
-
-                file_put_contents("gitlab_webhook.log", implode("\n", $output) . "\n", FILE_APPEND);
+            $data = json_decode($payload, true);
+            if ($data["ref"] === "refs/heads/new") {
+                exec("cd ~/public_html/lsf && git pull origin new 2>&1", $output, $returnCode);
+                file_put_contents("webhook.log", implode('\n', $output), FILE_APPEND);
             }
-
-            return $this->sendResponse(null, 'success', 200);
+            return response()->json('success', 200);
         } catch (Throwable $e) {
-            return $this->sendServerError($e->getMessage());
+            return response()->json($e->getMessage(), 500);
         }
     }
 }
