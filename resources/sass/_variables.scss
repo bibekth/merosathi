@@ -1,8 +1,9 @@
 // Body
-$body-bg: #f8fafc;
+// $body-bg: #f8fafc;
+$body-bg: #F9FAFB;
 
 // Typography
-$font-family-sans-serif: 'Nunito', sans-serif;
+$font-family-sans-serif: 'Montserrat', sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 
@@ -15,9 +16,16 @@ $off-white: #F9FAFB;
 $text-gray: #374151;
 $border-gray: #D1D5DB;
 
+.custom-font{
+    font-family: $font-family-sans-serif;
+}
 
 .custom-bg-light-blue{
-    background-color: $light-blue;
+    background-color: $light-blue !important;
+}
+
+.custom-bg-off-white{
+    background-color: $off-white !important;
 }
 
 .custom-text-gray{
@@ -25,13 +33,25 @@ $border-gray: #D1D5DB;
 }
 
 .custom-border-gray{
-    border: 1px solid $border-gray;
+    border: 1px solid $border-gray !important;
 }
 
 .custom-text-decoration-none{
-    text-decoration: none;
+    text-decoration: none !important;
 }
 
 .custom-color-inherit{
     color: inherit !important;
+}
+
+.pt-10{
+    padding-top: 6rem !important;
+}
+
+.text-bold{
+    font-weight: bold !important;
+}
+
+.text-underline{
+    text-decoration: underline;
 }

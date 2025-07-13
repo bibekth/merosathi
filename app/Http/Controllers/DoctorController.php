@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Doctor;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class DoctorController extends Controller
 {
@@ -12,7 +14,8 @@ class DoctorController extends Controller
      */
     public function index()
     {
-        //
+        $doctors = Doctor::paginate(10);
+        return view('doctors.index', ['data' => $doctors]);
     }
 
     /**
@@ -20,7 +23,7 @@ class DoctorController extends Controller
      */
     public function create()
     {
-        //
+        return view('doctors.create');
     }
 
     /**
@@ -28,7 +31,31 @@ class DoctorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email|unique:doctors,email',
+            'contact' => 'required|unique:doctors,contact',
+            'address' => 'required',
+            'description' => 'nullable',
+        ]);
+
+        $data = $request->all();
+
+        if(User::where('email', $request->email)->exists()){
+            $user = User::where('email', $request->email)->first();
+        }else{
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->contact)
+            ]);
+        }
+
+        $data['user_id'] = $user->id;
+        
+        Doctor::create($data);
+
+        return redirect()->route('doctors.index');
     }
 
     /**
@@ -44,7 +71,7 @@ class DoctorController extends Controller
      */
     public function edit(Doctor $doctor)
     {
-        //
+        return view('doctors.edit', ['data' => $doctor]);
     }
 
     /**
@@ -60,6 +87,7 @@ class DoctorController extends Controller
      */
     public function destroy(Doctor $doctor)
     {
-        //
+        $doctor->delete();
+        return back();
     }
 }

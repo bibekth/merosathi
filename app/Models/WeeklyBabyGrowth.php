@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Article extends Model
+class WeeklyBabyGrowth extends Model
 {
     protected $guarded = ['id'];
 
@@ -15,10 +15,5 @@ class Article extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function sections()
-    {
-        return $this->hasMany(ArticleSection::class);
     }
 }

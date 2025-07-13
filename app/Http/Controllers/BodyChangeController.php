@@ -2,27 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Article;
-use App\Models\User;
+use App\Models\BodyChange;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Throwable;
 
-class ArticleController extends Controller
+class BodyChangeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $auth = User::find(Auth::id());
-        if ($auth->hasrole('admin')) {
-            $data = Article::with('user')->paginate(10);
-        } elseif ($auth->hasrole('doctor')) {
-            $data = Article::with('user')->where('user_id', $auth->id)->paginate(2);
-        }
-        return view('articles.index', ['data' => $data]);
+        $data = BodyChange::paginate(10);
+        return view('bodies.index', ['data' => $data]);
     }
 
     /**
@@ -30,7 +23,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return view('articles.create');
+        return view('bodies.create');
     }
 
     /**
@@ -39,14 +32,14 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'title' => 'required|unique:articles,title',
+            'title' => 'required|unique:body_changes,title',
             'description' => 'nullable',
             'banner' => 'image',
             'references' => 'array',
         ]);
 
         $imageName = $request->banner->getClientOriginalName();
-        $path = $request->banner->storeAs('articles/banner', $imageName, 'public');
+        $path = $request->banner->storeAs('bodies/banner', $imageName, 'public');
         $dbPath = 'storage/' . $path;
 
         $data = $request->only(['title', 'description']);
@@ -54,23 +47,23 @@ class ArticleController extends Controller
         $data['user_id'] = Auth::id();
         $data['banner_image'] = $dbPath;
 
-        if(!empty($request->references)){
+        if (!empty($request->references)) {
             $arrayReferences = [];
-            foreach($request->references as $reference){
+            foreach ($request->references as $reference) {
                 $arrayReferences[] = $reference;
             }
             $data['references'] = json_encode($arrayReferences);
         }
 
-        Article::create($data);
+        BodyChange::create($data);
 
-        return redirect()->route('articles.index');
+        return redirect()->route('bodies.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Article $article)
+    public function show(BodyChange $bodyChange)
     {
         //
     }
@@ -78,18 +71,20 @@ class ArticleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Article $article)
+    public function edit($id)
     {
-        return view('articles.edit', ['data' => $article]);
+        return view('bodies.edit', ['data' => BodyChange::find($id)]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Article $article)
+    public function update(Request $request, $id)
     {
+        $bodyChange = BodyChange::find($id);
+
         $this->validate($request, [
-            'title' => 'unique:articles,title,' . $article->id . ',id',
+            'title' => 'unique:weekly_baby_growths,title,' . $bodyChange->id . ',id',
             'description' => 'nullable',
             'banner' => 'image'
         ]);
@@ -97,36 +92,36 @@ class ArticleController extends Controller
         $data = $request->only(['title', 'description']);
 
         if ($request->has('banner')) {
-            if($article->banner_image !== null){
-                Storage::delete($article->banner_image);
+            if ($bodyChange->banner_image !== null) {
+                Storage::delete($bodyChange->banner_image);
             }
             $imageName = $request->banner->getClientOriginalName();
-            $path = $request->banner->storeAs('articles/banner', $imageName, 'public');
+            $path = $request->banner->storeAs('bodies/banner', $imageName, 'public');
             $dbPath = 'storage/' . $path;
             $data['banner_image'] = $dbPath;
         }
 
-        if(!empty($request->references)){
+        if (!empty($request->references)) {
             $arrayReferences = [];
-            foreach($request->references as $reference){
+            foreach ($request->references as $reference) {
                 $arrayReferences[] = $reference;
             }
             $data['references'] = json_encode($arrayReferences);
-        }else{
+        } else {
             $data['references'] = null;
         }
 
-        $article->update($data);
+        $bodyChange->update($data);
 
-        return redirect()->route('articles.index');
+        return redirect()->route('bodies.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Article $article)
+    public function destroy($id)
     {
-        $article->delete();
-        return redirect()->route('articles.index');
+        BodyChange::where('id', $id)->delete();
+        return redirect()->route('bodies.index');
     }
 }
