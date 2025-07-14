@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class BaseController extends Controller
 {
@@ -17,7 +17,7 @@ class BaseController extends Controller
         $response = [
             'success' => true,
         ];
-        if(!empty($message) || $message !== null) {
+        if (!empty($message) || $message !== null) {
             $response['message'] = $message;
         }
         if (!empty($result) || $result !== null) {
@@ -42,7 +42,7 @@ class BaseController extends Controller
         if (!empty($error)) {
             $response['message'] = $error;
         }
-        if (!empty($errorMessages)) {
+        if (!empty($errorMessages) || $errorMessages !== null) {
             $response['data'] = $errorMessages;
         }
         return response()->json($response, $code);
@@ -61,5 +61,17 @@ class BaseController extends Controller
         ];
 
         return response()->json($response, $code);
+    }
+
+    /**
+     * Handle a failed validation attempt.
+     */
+    public function validationError($validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'success'   => false,
+            'message'   => 'Validation errors',
+            'data'      => $validator->errors()
+        ], 422));
     }
 }
