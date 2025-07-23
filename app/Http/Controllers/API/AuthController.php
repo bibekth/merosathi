@@ -52,15 +52,13 @@ class AuthController extends BaseController
             'contact' => 'required|unique:normal_people,contact',
             'email' => 'required|email|unique:normal_people,email',
             'dob' => 'required|date',
-            'password' => 'required|min:8',
-            'confirm_password' => 'required|same:password'
         ]);
 
         if ($validator->fails()) {
             return $this->validationError($validator);
         }
 
-        $user = User::create(['name' => $request->name, 'email' => $request->email, 'password' => Hash::make($request->password)]);
+        $user = User::create(['name' => $request->name, 'email' => $request->email, 'password' => Hash::make($request->contact)]);
 
         $data = $request->only(['name', 'username', 'contact', 'email', 'dob']);
 
