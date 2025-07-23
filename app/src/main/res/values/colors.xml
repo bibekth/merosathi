@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="status_bar_color">#FF3B82F6</color>
+    <color name="primary_blue">#FF3B82F6</color>
+    <color name="light_blue">#FFE0F2FE</color>
+    <color name="accent_blue">#FF22D3EE</color>
+    <color name="dark_blue">#FF1E3A8A</color>
+    <color name="off_white">#FFF9FAFB</color>
+    <color name="text_gray">#FF010101</color>
+    <color name="border_gray">#FFD1D5DB</color>
+    <color name="hint_color">#FF9CA3AF</color>
+    <color name="link">#FF22D3EE</color>
+    <color name="error_red">#EF4444</color>
+</resources>
