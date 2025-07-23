@@ -9,6 +9,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.opengl.Visibility;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
@@ -72,6 +73,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         clickEvents();
         textWatcher();
+        limitation();
     }
 
     @Override
@@ -291,5 +293,9 @@ public class RegisterActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    protected void limitation() {
+        etContact.setFilters(new InputFilter[]{new InputFilter.LengthFilter(10)});
     }
 }

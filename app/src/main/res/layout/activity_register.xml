@@ -50,6 +50,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
+            <TextView
+                android:id="@+id/tvInfo"
+                android:text="Your contact will be used as your password for now. You can change it easily later."
+                android:textColor="@color/text_gray"
+                android:textSize="12sp"
+                android:paddingHorizontal="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
             <EditText
                 android:id="@+id/etName"
                 android:hint="Name"
