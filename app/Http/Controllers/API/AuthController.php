@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\NormalPeople;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -63,6 +64,7 @@ class AuthController extends BaseController
         $data = $request->only(['name', 'username', 'contact', 'email', 'dob']);
 
         $data['user_id'] = $user->id;
+        $data['dob'] = Carbon::parse($data['dob'])->format('Y-m-d');
 
         NormalPeople::create($data);
 

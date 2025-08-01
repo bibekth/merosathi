@@ -49,6 +49,17 @@
 
                     <div class="col-12">
                         <div class="mb-3">
+                            <label for="week" class="form-label">Week:</label>
+                            <input type="number" class="form-control @error('week') is-invalid @enderror" id="week"
+                                name="week" value="{{ old('week') }}" placeholder="For the nth week.">
+                            @error('week')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    
+                    <div class="col-12">
+                        <div class="mb-3">
                             <label class="form-label">References:</label>
                             <div id="reference-wrapper">
                                 <div class="input-group mb-2">

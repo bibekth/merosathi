@@ -36,13 +36,14 @@ class BodyChangeController extends Controller
             'description' => 'nullable',
             'banner' => 'image',
             'references' => 'array',
+            'week' => 'required|numeric'
         ]);
 
         $imageName = $request->banner->getClientOriginalName();
         $path = $request->banner->storeAs('bodies/banner', $imageName, 'public');
         $dbPath = 'storage/' . $path;
 
-        $data = $request->only(['title', 'description']);
+        $data = $request->only(['title', 'description', 'week']);
 
         $data['user_id'] = Auth::id();
         $data['banner_image'] = $dbPath;
@@ -86,7 +87,8 @@ class BodyChangeController extends Controller
         $this->validate($request, [
             'title' => 'unique:weekly_baby_growths,title,' . $bodyChange->id . ',id',
             'description' => 'nullable',
-            'banner' => 'image'
+            'banner' => 'image',
+            'week' => 'numeric'
         ]);
 
         $data = $request->only(['title', 'description']);
@@ -110,6 +112,8 @@ class BodyChangeController extends Controller
         } else {
             $data['references'] = null;
         }
+
+        $data['week'] = $request->week;
 
         $bodyChange->update($data);
 

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Models\BodyChange;
 use App\Models\User;
+use App\Models\WeeklyBabyGrowth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -53,22 +55,45 @@ class ApiController extends BaseController
         }
 
         $auth = User::find(Auth::id());
-
+        $person = $auth->person;
         if($request->filled('lmp')){
-            $auth->lmp = $request->lmp;
+            $person->lmp = $request->lmp;
             $endDate = Carbon::parse($request->lmp)->addWeeks(40);
         }elseif($request->filled('weeks')){
             $endDate = Carbon::parse(today())->subWeeks($request->weeks)->addWeeks(40);
         }
 
-        $auth->person->expected_date = $endDate->format('Y-m-d');
-        $auth->save();
+        $person->expected_date = $endDate->format('Y-m-d');
+        $person->save();
 
         return $this->sendResponse(['deliver date' => $endDate->format('Y-m-d')]);
     }
 
-    public function main()
+    public function main(Request $request)
     {
-        
+         $validator = Validator::make($request->all(), [
+            'date' => 'date',
+        ]);
+
+        if($validator->fails()) {
+            return $this->validationError($validator);
+        }
+
+        $auth = User::find(Auth::id());
+
+        $date = Carbon::parse($request->date) ?? today();
+
+        $expectedDate = Carbon::parse($auth->person->expected_date);
+
+        $weeks = (40 - $expectedDate->diffInWeeks($date, true));
+        if($weeks - floor($weeks) > 0){
+            $weeks = (int) ($weeks + 1);
+        }else{
+            $weeks = (int) $weeks;
+        }
+        $data['baby_growth'] = WeeklyBabyGrowth::where('weeks', $weeks)->first();
+        $data['body_change'] = BodyChange::where('weeks', $weeks)->first();
+
+        return $this->sendResponse($data);
     }
 }

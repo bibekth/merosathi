@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->json('references')->nullable();
             $table->unsignedInteger('order')->nullable();
+            $table->unsignedInteger('week')->nullable()->unique();
             $table->timestamps();
         });
     }

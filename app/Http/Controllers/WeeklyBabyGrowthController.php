@@ -42,7 +42,7 @@ class WeeklyBabyGrowthController extends Controller
         $path = $request->banner->storeAs('babies/banner', $imageName, 'public');
         $dbPath = 'storage/' . $path;
 
-        $data = $request->only(['title', 'description']);
+        $data = $request->only(['title', 'description', 'week']);
 
         $data['user_id'] = Auth::id();
         $data['banner_image'] = $dbPath;
@@ -111,6 +111,8 @@ class WeeklyBabyGrowthController extends Controller
             $data['references'] = null;
         }
 
+        $data['week'] = $request->week;
+        
         $weeklyBabyGrowth->update($data);
 
         return redirect()->route('babies.index');
