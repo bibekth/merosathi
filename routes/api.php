@@ -12,6 +12,8 @@ Route::get('/user', function (Request $request) {
 Route::group(['namespace' => 'App\Http\Controllers\API', 'as' => 'api.'], function () {
     Route::group(['controller' => 'ApiController'], function () {
         Route::post('github-webhooks', 'githubWebhook');
+        Route::post('calculate', 'calculateDay')->name('calculate.days');
+        Route::get('main', 'main')->name('main');
     });
 
     Route::group(['controller' => 'AuthController'], function () {
@@ -19,4 +21,8 @@ Route::group(['namespace' => 'App\Http\Controllers\API', 'as' => 'api.'], functi
         Route::post('register', 'register')->name('register');
         Route::post('change-password', 'changePassword')->name('change.password');
     });
+
+    Route::apiResource('articles', 'ArticleController')->only(['index', 'show']);
+    Route::apiResource('body-changes', 'BodyChangeController')->only(['index', 'show']);
+    Route::apiResource('weekly-baby-growth', 'WeeklyBabyGrowthController')->only(['index', 'show']);
 });

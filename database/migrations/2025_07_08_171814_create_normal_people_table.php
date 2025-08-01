@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('contact')->unique();
             $table->string('email')->unique();
             $table->date('dob')->nullable()->comment('Date of birth');
+            $table->date('lmp')->nullable()->date_format('Y-m-d');
+            $table->date('expected_date')->nullable()->date_format('Y-m-d');
             $table->timestamps();
         });
     }

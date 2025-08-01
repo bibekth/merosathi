@@ -1,24 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
-use App\Models\Pregnancy as Pregency;
+use App\Http\Controllers\Controller;
+use App\Models\Pregnancy;
 use Illuminate\Http\Request;
 
-class PregencyController extends Controller
+class PregnancyController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
     {
         //
     }
@@ -34,15 +27,7 @@ class PregencyController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Pregency $pregency)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Pregency $pregency)
+    public function show(Pregnancy $pregnancy)
     {
         //
     }
@@ -50,7 +35,7 @@ class PregencyController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Pregency $pregency)
+    public function update(Request $request, Pregnancy $pregnancy)
     {
         //
     }
@@ -58,7 +43,7 @@ class PregencyController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Pregency $pregency)
+    public function destroy(Pregnancy $pregnancy)
     {
         //
     }

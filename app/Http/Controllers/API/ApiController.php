@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Throwable;
 
 class ApiController extends BaseController
@@ -32,5 +36,39 @@ class ApiController extends BaseController
         } catch (Throwable $e) {
             return response()->json($e->getMessage(), 500);
         }
+    }
+
+    public function calculateDay(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'lmp' => 'date',
+            'weeks' => 'numeric'
+        ]);
+
+        if(!$request->filled('lmp') && !$request->filled('weeks')){
+            return $this->sendError('At least lmp or weeks field is required.', null, 422);
+        }
+
+        if($validator->fails()) {
+            return $this->validationError($validator);
+        }
+
+        $auth = User::find(Auth::id());
+
+        if($request->filled('lmp')){
+            $auth->lmp = $request->lmp;
+            $endDate = Carbon::parse($request->lmp)->addWeeks(40);
+        }elseif($request->filled('weeks')){
+            $endDate = Carbon::parse(today())->subWeeks($request->weeks)->addWeeks(40);
+        }
+
+        $auth->person->expected_date = $endDate->format('Y-m-d');
+        $auth->save();
+
+        return $this->sendResponse(['deliver date' => $endDate->format('Y-m-d')]);
+    }
+
+    public function main()
+    {
+        
     }
 }

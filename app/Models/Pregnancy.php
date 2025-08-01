@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Pregency extends Model
+class Pregnancy extends Model
 {
+    protected $table = 'pregencies';
 
     protected $hidden = ['created_at', 'updated_at'];
-
 }
