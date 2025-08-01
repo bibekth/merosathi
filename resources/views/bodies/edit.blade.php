@@ -39,6 +39,18 @@
 
                         <div class="col-12">
                             <div class="mb-3">
+                                <label for="week" class="form-label">Week:</label>
+                                <input type="number" class="form-control @error('week') is-invalid @enderror"
+                                    id="week" name="week" value="{{ old('week') }}"
+                                    placeholder="For the nth week.">
+                                @error('week')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="mb-3">
                                 <label for="description" class="form-label">Description:</label>
                                 <textarea name="description" id="description" cols="30" rows="5"
                                     class="form-control @error('description') is-invalid @enderror">{{ old('description') ?? $data->description }}</textarea>
@@ -51,27 +63,17 @@
 
                     <div class="col-12">
                         <div class="mb-3">
-                            <label for="week" class="form-label">Week:</label>
-                            <input type="number" class="form-control @error('week') is-invalid @enderror" id="week"
-                                name="week" value="{{ old('week') }}" placeholder="For the nth week.">
-                            @error('week')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-                    
-                    <div class="col-12">
-                        <div class="mb-3">
                             <label class="form-label">References:</label>
                             <div id="reference-wrapper">
-                                @if($data->references !== null && count(json_decode($data->references)) > 0)
-                                @foreach(json_decode($data->references) as $item)
-                                <div class="input-group mb-2">
-                                    <input type="text" name="references[]" class="form-control" value="{{ $item }}"
-                                        placeholder="Enter reference">
-                                    <button type="button" class="btn btn-outline-danger remove-reference">Remove</button>
-                                </div>
-                                @endforeach
+                                @if ($data->references !== null && count(json_decode($data->references)) > 0)
+                                    @foreach (json_decode($data->references) as $item)
+                                        <div class="input-group mb-2">
+                                            <input type="text" name="references[]" class="form-control"
+                                                value="{{ $item }}" placeholder="Enter reference">
+                                            <button type="button"
+                                                class="btn btn-outline-danger remove-reference">Remove</button>
+                                        </div>
+                                    @endforeach
                                 @endif
                             </div>
                             <button type="button" class="btn btn-sm btn-outline-secondary" id="add-reference">Add

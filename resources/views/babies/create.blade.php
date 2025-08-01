@@ -37,6 +37,18 @@
 
                         <div class="col-12">
                             <div class="mb-3">
+                                <label for="week" class="form-label">Week:</label>
+                                <input type="number" class="form-control @error('week') is-invalid @enderror"
+                                    id="week" name="week" value="{{ old('week') }}"
+                                    placeholder="For the nth week.">
+                                @error('week')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="mb-3">
                                 <label for="description" class="form-label">Description:</label>
                                 <textarea name="description" id="description" cols="30" rows="5"
                                     class="form-control @error('description') is-invalid @enderror">{{ old('description') }}</textarea>
@@ -44,17 +56,6 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <div class="mb-3">
-                            <label for="week" class="form-label">Week:</label>
-                            <input type="number" class="form-control @error('week') is-invalid @enderror" id="week"
-                                name="week" value="{{ old('week') }}" placeholder="For the nth week.">
-                            @error('week')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
                         </div>
                     </div>
 
