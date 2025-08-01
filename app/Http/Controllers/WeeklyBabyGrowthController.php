@@ -36,6 +36,7 @@ class WeeklyBabyGrowthController extends Controller
             'description' => 'nullable',
             'banner' => 'image',
             'references' => 'array',
+            'week' => 'numeric|unique:weekly_baby_growths,week'
         ]);
 
         $imageName = $request->banner->getClientOriginalName();
@@ -112,7 +113,7 @@ class WeeklyBabyGrowthController extends Controller
         }
 
         $data['week'] = $request->week;
-        
+
         $weeklyBabyGrowth->update($data);
 
         return redirect()->route('babies.index');

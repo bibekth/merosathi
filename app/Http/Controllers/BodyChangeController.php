@@ -36,7 +36,7 @@ class BodyChangeController extends Controller
             'description' => 'nullable',
             'banner' => 'image',
             'references' => 'array',
-            'week' => 'required|numeric'
+            'week' => 'required|numeric|unique:body_changes,week'
         ]);
 
         $imageName = $request->banner->getClientOriginalName();

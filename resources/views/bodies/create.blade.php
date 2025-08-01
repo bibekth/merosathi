@@ -38,7 +38,7 @@
                         <div class="col-12">
                             <div class="mb-3">
                                 <label for="week" class="form-label">Week:</label>
-                                <input type="number" class="form-control @error('week') is-invalid @enderror"
+                                <input type="number" class="form-control @error('week') is-invalid @enderror" min="0"
                                     id="week" name="week" value="{{ old('week') }}"
                                     placeholder="For the nth week.">
                                 @error('week')
