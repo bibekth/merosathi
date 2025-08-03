@@ -41,7 +41,7 @@
                             <div class="mb-3">
                                 <label for="week" class="form-label">Week:</label>
                                 <input type="number" class="form-control @error('week') is-invalid @enderror" min="0"
-                                    id="week" name="week" value="{{ old('week') }}"
+                                    id="week" name="week" value="{{ old('week') ?? $data->week }}"
                                     placeholder="For the nth week.">
                                 @error('week')
                                     <div class="invalid-feedback">{{ $message }}</div>
