@@ -59,7 +59,7 @@ class ArticleController extends Controller
             foreach($request->references as $reference){
                 $arrayReferences[] = $reference;
             }
-            $data['references'] = json_encode($arrayReferences);
+            $data['references'] = $arrayReferences;
         }
 
         Article::create($data);
