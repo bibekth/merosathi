@@ -108,7 +108,7 @@ class BodyChangeController extends Controller
             foreach ($request->references as $reference) {
                 $arrayReferences[] = $reference;
             }
-            $data['references'] = json_encode($arrayReferences);
+            $data['references'] = ($arrayReferences);
         } else {
             $data['references'] = null;
         }
