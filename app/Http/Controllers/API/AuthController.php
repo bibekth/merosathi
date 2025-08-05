@@ -36,8 +36,7 @@ class AuthController extends BaseController
         }
 
         Auth::login($user);
-        $token = $user->createToken($data['email']);
-        // $tokenPart = explode('|', $token->plainTextToken);
+        $token = $user->createToken($data['email'])->plainTextToken;
 
         return $this->sendResponse(['token' => $token]);
     }
