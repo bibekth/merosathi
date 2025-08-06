@@ -11,7 +11,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitService {
     private static Retrofit retrofit = null;
     private static final String base_url = "https://merosathi.techenfield.com/";
-
     private RetrofitService() {}
 
     public static Retrofit getService(Context context) {

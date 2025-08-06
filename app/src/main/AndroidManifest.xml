@@ -16,6 +16,24 @@
         android:theme="@style/Theme.MeroSathi"
         tools:targetApi="31">
         <activity
+            android:name=".BodyChangeViewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BabyGrowthViewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ArticleViewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ArticleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BodyChangeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BabyGrowthActivity"
+            android:exported="false" />
+        <activity
             android:name=".ChangePassword"
             android:exported="false" />
         <activity

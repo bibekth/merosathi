@@ -140,7 +140,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    protected void sharedPreference() {
+    private void sharedPreference() {
         token = SharedPreferenceManager.getToken(getApplicationContext());
         bearerToken = SharedPreferenceManager.getBearerToken(getApplicationContext());
     }
