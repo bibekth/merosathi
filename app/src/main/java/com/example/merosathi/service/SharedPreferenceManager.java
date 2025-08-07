@@ -30,4 +30,8 @@ public class SharedPreferenceManager {
         editor.remove(TOKEN_KEY);
         editor.apply();
     }
+
+    public static String getUrl() {
+        return "https://merosathi.techenfield.com/";
+    }
 }

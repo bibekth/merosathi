@@ -1,20 +1,11 @@
 package com.example.merosathi.model;
 
-import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class BodyChange {
     Boolean success;
     String message;
     Data data;
-
-    public BodyChange() {
-    }
-
-    public BodyChange(Boolean success, String message, Data data) {
-        this.success = success;
-        this.message = message;
-        this.data = data;
-    }
 
     public Boolean getSuccess() {
         return success;
@@ -29,34 +20,11 @@ public class BodyChange {
     }
 
     public static class Data {
-        Integer id, user_id;
-        String title, banner_image, description, order;
-        Array references;
-        Data.BabyGrowthUser user;
-
-        public Data() {
-        }
-
-        public Data(Integer id, Integer user_id, String title, String banner_image, String description, String order, Array references) {
-            this.id = id;
-            this.user_id = user_id;
-            this.title = title;
-            this.banner_image = banner_image;
-            this.description = description;
-            this.order = order;
-            this.references = references;
-        }
-
-        public Data(Integer id, Integer user_id, String title, String banner_image, String description, String order, Array references, Data.BabyGrowthUser user) {
-            this.id = id;
-            this.user_id = user_id;
-            this.title = title;
-            this.banner_image = banner_image;
-            this.description = description;
-            this.order = order;
-            this.references = references;
-            this.user = user;
-        }
+        Integer id, user_id, week;
+        String title, banner_image, description;
+        Integer order;
+        ArrayList<String> references;
+        BabyGrowthUser user;
 
         public Integer getId() {
             return id;
@@ -64,6 +32,10 @@ public class BodyChange {
 
         public Integer getUser_id() {
             return user_id;
+        }
+
+        public Integer getWeek() {
+            return week;
         }
 
         public String getTitle() {
@@ -78,15 +50,15 @@ public class BodyChange {
             return description;
         }
 
-        public String getOrder() {
+        public Integer getOrder() {
             return order;
         }
 
-        public Array getReferences() {
+        public ArrayList<String> getReferences() {
             return references;
         }
 
-        public Data.BabyGrowthUser getUser() {
+        public BabyGrowthUser getUser() {
             return user;
         }
 
@@ -94,16 +66,6 @@ public class BodyChange {
             Integer id;
             String name, email;
             Doctor doctor;
-
-            public BabyGrowthUser() {
-            }
-
-            public BabyGrowthUser(Integer id, String name, String email, Doctor doctor) {
-                this.id = id;
-                this.name = name;
-                this.email = email;
-                this.doctor = doctor;
-            }
 
             public Integer getId() {
                 return id;
@@ -120,22 +82,10 @@ public class BodyChange {
             public Doctor getDoctor() {
                 return doctor;
             }
+
             public static class Doctor {
                 Integer id, user_id;
                 String name, email, contact, description, address;
-
-                public Doctor() {
-                }
-
-                public Doctor(Integer id, Integer user_id, String name, String email, String contact, String description, String address) {
-                    this.id = id;
-                    this.user_id = user_id;
-                    this.name = name;
-                    this.email = email;
-                    this.contact = contact;
-                    this.description = description;
-                    this.address = address;
-                }
 
                 public Integer getId() {
                     return id;

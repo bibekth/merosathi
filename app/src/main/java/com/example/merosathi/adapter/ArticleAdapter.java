@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.example.merosathi.R;
 import com.example.merosathi.model.ArticleList;
 import com.example.merosathi.model.BabyGrowthList;
+import com.example.merosathi.service.SharedPreferenceManager;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -47,7 +48,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         String imageUrl = currentData.getBanner_image();
         if(!Objects.equals(imageUrl, "")){
             Glide.with(context)
-                    .load(imageUrl)
+                    .load(SharedPreferenceManager.getUrl() + imageUrl)
                     .into(holder.ivBanner);
         }
 

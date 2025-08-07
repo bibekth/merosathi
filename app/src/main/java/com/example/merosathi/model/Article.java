@@ -1,23 +1,11 @@
 package com.example.merosathi.model;
 
-import com.google.gson.annotations.SerializedName;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Article {
     Boolean success;
     String message;
     Data data;
-
-    public Article() {
-    }
-
-    public Article(Boolean success, String message, Data data) {
-        this.success = success;
-        this.message = message;
-        this.data = data;
-    }
 
     public Boolean getSuccess() {
         return success;
@@ -34,32 +22,9 @@ public class Article {
     public static class Data {
         Integer id, user_id;
         String title, banner_image, description;
-        Array references;
-        ArrayList<Sections> sections;
+        ArrayList<String> references; // ✅ Fixed
+        ArrayList<Section> sections;
         ArticleUser user;
-
-        public Data() {
-        }
-
-        public Data(Integer id, Integer user_id, String title, String banner_image, String description, Array references) {
-            this.id = id;
-            this.user_id = user_id;
-            this.title = title;
-            this.banner_image = banner_image;
-            this.description = description;
-            this.references = references;
-        }
-
-        public Data(Integer id, Integer user_id, String title, String banner_image, String description, Array references, ArrayList<Sections> sections, ArticleUser user) {
-            this.id = id;
-            this.user_id = user_id;
-            this.title = title;
-            this.banner_image = banner_image;
-            this.description = description;
-            this.references = references;
-            this.sections = sections;
-            this.user = user;
-        }
 
         public Integer getId() {
             return id;
@@ -81,11 +46,11 @@ public class Article {
             return description;
         }
 
-        public Array getReferences() {
+        public ArrayList<String> getReferences() {
             return references;
         }
 
-        public ArrayList<Sections> getSections() {
+        public ArrayList<Section> getSections() {
             return sections;
         }
 
@@ -93,19 +58,9 @@ public class Article {
             return user;
         }
 
-        public static class Sections {
+        public static class Section {
             Integer id, article_id;
             String title, description;
-
-            public Sections() {
-            }
-
-            public Sections(Integer id, Integer article_id, String title, String description) {
-                this.id = id;
-                this.article_id = article_id;
-                this.title = title;
-                this.description = description;
-            }
 
             public Integer getId() {
                 return id;
@@ -129,16 +84,6 @@ public class Article {
             String name, email;
             Doctor doctor;
 
-            public ArticleUser() {
-            }
-
-            public ArticleUser(Integer id, String name, String email, Doctor doctor) {
-                this.id = id;
-                this.name = name;
-                this.email = email;
-                this.doctor = doctor;
-            }
-
             public Integer getId() {
                 return id;
             }
@@ -158,18 +103,6 @@ public class Article {
             public static class Doctor {
                 Integer id;
                 String name, email, contact, address, description;
-
-                public Doctor() {
-                }
-
-                public Doctor(Integer id, String name, String email, String contact, String address, String description) {
-                    this.id = id;
-                    this.name = name;
-                    this.email = email;
-                    this.contact = contact;
-                    this.address = address;
-                    this.description = description;
-                }
 
                 public Integer getId() {
                     return id;
