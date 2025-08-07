@@ -13,7 +13,7 @@ class WeeklyBabyGrowthController extends BaseController
      */
     public function index()
     {
-        $data = WeeklyBabyGrowth::all();
+        $data = WeeklyBabyGrowth::get(['id','title','description', 'banner_image']);
         return $this->sendResponse($data);
     }
 

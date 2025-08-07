@@ -13,7 +13,7 @@ class ArticleController extends BaseController
      */
     public function index()
     {
-        $data = Article::all();
+        $data = Article::get(['id','title','description', 'banner_image']);
         return $this->sendResponse($data);
     }
 

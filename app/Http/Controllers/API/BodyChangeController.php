@@ -13,7 +13,7 @@ class BodyChangeController extends BaseController
      */
     public function index()
     {
-        $data = BodyChange::all();
+        $data = BodyChange::get(['id','title','description', 'banner_image']);
         return $this->sendResponse($data);
     }
 
