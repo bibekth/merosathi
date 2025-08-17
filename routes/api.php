@@ -16,6 +16,7 @@ Route::group(['namespace' => 'App\Http\Controllers\API', 'as' => 'api.'], functi
         Route::middleware('auth:api')->group(function() {
             Route::post('change-password', 'changePassword')->name('change.password');
             Route::get('profile', 'profile')->name('profile');
+            Route::post('profile/edit', 'profileEdit')->name('profile.edit');
         });
     });
     Route::middleware('auth:api')->group(function () {

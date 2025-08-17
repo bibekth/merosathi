@@ -96,4 +96,11 @@ class AuthController extends BaseController
     {
         return $this->sendResponse(User::with('person')->find(Auth::id()));
     }
+
+    public function profileEdit(Request $request)
+    {
+        $auth = User::find(Auth::id());
+        $auth->person()->update($request->all());
+        return $this->sendResponse();
+    }
 }
