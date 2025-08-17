@@ -91,4 +91,9 @@ class AuthController extends BaseController
 
         return $this->sendResponse(null, 'accepted', 202);
     }
+
+    public function profile()
+    {
+        return $this->sendResponse(User::with('person')->find(Auth::id()));
+    }
 }

@@ -13,9 +13,12 @@ Route::group(['namespace' => 'App\Http\Controllers\API', 'as' => 'api.'], functi
     Route::group(['controller' => 'AuthController'], function () {
         Route::post('login', 'login')->name('login');
         Route::post('register', 'register')->name('register');
-        Route::post('change-password', 'changePassword')->name('change.password');
+        Route::middleware('auth:api')->group(function() {
+            Route::post('change-password', 'changePassword')->name('change.password');
+            Route::get('profile', 'profile')->name('profile');
+        });
     });
-    Route::middleware('auth:sanctum')->group(function () {
+    Route::middleware('auth:api')->group(function () {
         Route::group(['controller' => 'ApiController'], function () {
             Route::post('github-webhooks', 'githubWebhook')->withoutMiddleware('api');
             Route::post('calculate', 'calculateDay')->name('calculate.days');
