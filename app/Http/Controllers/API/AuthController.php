@@ -100,7 +100,14 @@ class AuthController extends BaseController
     public function profileEdit(Request $request)
     {
         $auth = User::find(Auth::id());
-        $auth->person()->update($request->all());
+        $person = NormalPeople::where('user_id', Auth::id());
+
+        $person->update($request->all());
+        if($request->filled("email")) {
+            $auth->email = $request->email;
+            $auth->save();
+        }
+        
         return $this->sendResponse();
     }
 }
