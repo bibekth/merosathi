@@ -28,7 +28,7 @@ public class BodyChangeActivity extends AppCompatActivity {
     BodyChangeAdapter bodyChangeAdapter;
     ArrayList<BodyChangeList.Data> dataArrayList = new ArrayList<>();
     Integer growthId;
-    Intent babyGrowthIntent, bodyChangeIntent, articleIntent, homeIntent;
+    Intent babyGrowthIntent, bodyChangeIntent, articleIntent, homeIntent, bodyChangeViewIntent;
     RecyclerView recyclerView;
     String token, bearerToken;
     LinearLayout llBabyGrowth, llBodyChange, llArticle, llHome;
@@ -124,7 +124,8 @@ public class BodyChangeActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(bodyChangeAdapter);
         bodyChangeAdapter.setOnItemClickListener((id -> {
-            growthId = id;
+            bodyChangeViewIntent.putExtra("id", id);
+            startActivity(bodyChangeViewIntent);
         }));
 
     }
@@ -143,13 +144,6 @@ public class BodyChangeActivity extends AppCompatActivity {
             }
         });
 
-//        llBodyChange.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(bodyChangeIntent);
-//            }
-//        });
-
         llHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -163,5 +157,6 @@ public class BodyChangeActivity extends AppCompatActivity {
         bodyChangeIntent = new Intent(this, BodyChangeActivity.class);
         articleIntent = new Intent(this, ArticleActivity.class);
         homeIntent = new Intent(this, MainActivity.class);
+        bodyChangeViewIntent = new Intent(this, BodyChangeViewActivity.class);
     }
 }

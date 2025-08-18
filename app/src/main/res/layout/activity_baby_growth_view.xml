@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/off_white"
+    android:padding="8dp"
     tools:context=".BabyGrowthViewActivity">
 
     <LinearLayout
@@ -25,17 +27,20 @@
         <LinearLayout
             android:orientation="horizontal"
             android:id="@+id/llDoctor"
+            android:paddingVertical="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/ivDoctorAvatar"
+                android:src="@drawable/doctor"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:contentDescription="Doctor" />
 
             <TextView
                 android:id="@+id/tvDoctorDescription"
+                android:textColor="@color/text_gray"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -47,12 +52,15 @@
 
         <TextView
             android:id="@+id/tvContent"
+            android:textColor="@color/text_gray"
+            android:textSize="14sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <TextView
             android:text="References"
             android:textSize="16sp"
+            android:paddingVertical="8dp"
             android:textColor="@color/text_gray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

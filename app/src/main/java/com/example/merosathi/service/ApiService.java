@@ -46,4 +46,14 @@ public interface ApiService {
 
     @GET("api/body-changes/{id}")
     Call<BodyChange> bodyChangeShow(@Header("Authorization") String token, @Path("id") Integer id);
+
+//    @GET("api/main")
+//    Call<>
+
+    @GET("api/profile")
+    Call<User> profile(@Header("Authorization") String token);
+
+    @FormUrlEncoded
+    @POST("api/profile/edit")
+    Call<User> editProfile(@Header("Authorization") String token, @Field("name") String name, @Field("contact") String contact, @Field("email") String email, @Field("dob") String dob);
 }

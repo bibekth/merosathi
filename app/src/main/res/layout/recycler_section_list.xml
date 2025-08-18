@@ -3,25 +3,26 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/off_white">
+    android:background="@color/off_white"
+    android:padding="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:paddingVertical="4dp"
+        android:padding="4dp"
         app:layout_constraintTop_toTopOf="parent">
         <TextView
-            android:id="@+id/tvSerialNumber"
-            android:textSize="14sp"
+            android:id="@+id/tvTitle"
+            android:textSize="16sp"
             android:textColor="@color/text_gray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
-            android:id="@+id/tvReferenceDetail"
-            android:textSize="14sp"
+            android:id="@+id/tvSectionContent"
+            android:textSize="12sp"
             android:textColor="@color/text_gray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

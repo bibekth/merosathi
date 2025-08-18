@@ -28,7 +28,7 @@ public class ArticleActivity extends AppCompatActivity {
     ArticleAdapter articleAdapter;
     ArrayList<ArticleList.Data> dataArrayList = new ArrayList<>();
     Integer growthId;
-    Intent babyGrowthIntent, bodyChangeIntent, articleIntent, homeIntent;
+    Intent babyGrowthIntent, bodyChangeIntent, articleIntent, homeIntent, articleViewIntent;
     RecyclerView recyclerView;
     String token, bearerToken;
     LinearLayout llBabyGrowth, llBodyChange, llArticle, llHome;
@@ -124,7 +124,9 @@ public class ArticleActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(articleAdapter);
         articleAdapter.setOnItemClickListener((id -> {
-            growthId = id;
+            articleViewIntent.putExtra("id", id);
+            startActivity(articleViewIntent);
+//            growthId = id;
         }));
 
     }
@@ -164,6 +166,7 @@ public class ArticleActivity extends AppCompatActivity {
         bodyChangeIntent = new Intent(this, BodyChangeActivity.class);
         articleIntent = new Intent(this, ArticleActivity.class);
         homeIntent = new Intent(this, MainActivity.class);
+        articleViewIntent = new Intent(this, ArticleViewActivity.class);
     }
 
 }

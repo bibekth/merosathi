@@ -1,35 +1,36 @@
 package com.example.merosathi;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.merosathi.adapter.WeekAdapter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     Calendar currentWeekStart;
-    Intent babyGrowthIntent, bodyChangeIntent, articleIntent;
+    Intent babyGrowthIntent, bodyChangeIntent, articleIntent, profileIntent;
     List<DateItem> dates = new ArrayList<>();
     LinearLayoutManager layoutManager;
     RecyclerView weekRecyclerView;
     WeekAdapter weekAdapter;
     TextView monthYearTextView;
     LinearLayout llBabyGrowth, llBodyChange, llArticle;
+    ImageView ivProfileIcon;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         currentWeekStart.set(Calendar.DAY_OF_WEEK, currentWeekStart.getFirstDayOfWeek());
 
         // Populate initial dates (e.g., a few months around current week)
-        generateDates(currentWeekStart, -60, 60); // 60 days before, 60 days after
+        generateDates(currentWeekStart, -365, 365);
 
         weekAdapter = new WeekAdapter(dates);
         weekRecyclerView.setAdapter(weekAdapter);
@@ -186,6 +187,7 @@ public class MainActivity extends AppCompatActivity {
         llBabyGrowth = findViewById(R.id.llBabyGrowth);
         llBodyChange = findViewById(R.id.llBodyChange);
         llArticle = findViewById(R.id.llArticle);
+        ivProfileIcon = findViewById(R.id.ivProfileIcon);
     }
 
     private void onClickEvents() {
@@ -209,12 +211,20 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(bodyChangeIntent);
             }
         });
+
+        ivProfileIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(profileIntent);
+            }
+        });
     }
 
     private void intents() {
         babyGrowthIntent = new Intent(this, BabyGrowthActivity.class);
         bodyChangeIntent = new Intent(this, BodyChangeActivity.class);
         articleIntent = new Intent(this, ArticleActivity.class);
+        profileIntent = new Intent(this, ProfileActivity.class);
     }
 
     private void makeAPICall()
