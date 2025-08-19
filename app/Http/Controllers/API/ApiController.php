@@ -40,26 +40,27 @@ class ApiController extends BaseController
         }
     }
 
-    public function calculateDay(Request $request) {
+    public function calculateDay(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'lmp' => 'date',
             'weeks' => 'numeric'
         ]);
 
-        if(!$request->filled('lmp') && !$request->filled('weeks')){
+        if (!$request->filled('lmp') && !$request->filled('weeks')) {
             return $this->sendError('At least lmp or weeks field is required.', null, 422);
         }
 
-        if($validator->fails()) {
+        if ($validator->fails()) {
             return $this->validationError($validator);
         }
 
         $auth = User::find(Auth::id());
         $person = $auth->person;
-        if($request->filled('lmp')){
+        if ($request->filled('lmp')) {
             $person->lmp = $request->lmp;
             $endDate = Carbon::parse($request->lmp)->addWeeks(40);
-        }elseif($request->filled('weeks')){
+        } elseif ($request->filled('weeks')) {
             $endDate = Carbon::parse(today())->subWeeks($request->weeks)->addWeeks(40);
         }
 
@@ -71,28 +72,39 @@ class ApiController extends BaseController
 
     public function main(Request $request)
     {
-         $validator = Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
             'date' => 'date',
         ]);
 
-        if($validator->fails()) {
+        if ($validator->fails()) {
             return $this->validationError($validator);
         }
 
         $auth = User::find(Auth::id());
 
-        $date = Carbon::parse($request->date) ?? today();
+        $date = $request->date ? Carbon::parse($request->date) : today();
 
         $expectedDate = Carbon::parse($auth->person->expected_date);
 
-        $weeks = (40 - $expectedDate->diffInWeeks($date, true));
-        if($weeks - floor($weeks) > 0){
-            $weeks = (int) ($weeks + 1);
-        }else{
-            $weeks = (int) $weeks;
-        }
-        $data['baby_growth'] = WeeklyBabyGrowth::where('weeks', $weeks)->first();
-        $data['body_change'] = BodyChange::where('weeks', $weeks)->first();
+        // Pregnancy start = due date - 40 weeks
+        $pregnancyStartDate = $expectedDate->copy()->subWeeks(40);
+
+        // Total days since pregnancy started
+        $daysSinceStart = $pregnancyStartDate->diffInDays($date);
+
+        // Calculate weeks and days
+        $weeks = floor($daysSinceStart / 7); // +1 to make it "Week 1" not "Week 0"
+        $dayOfWeek = ($daysSinceStart % 7) + 1;  // Day 1-7 inside the week
+
+        // Baby growth & body change based on current week
+        $data['baby_growth'] = WeeklyBabyGrowth::where('week', $weeks)->first();
+        $data['body_change'] = BodyChange::where('week', $weeks)->first();
+
+        // Time description: "Week X, Day Y"
+        $weekLabel = $weeks === 1 ? 'week' : 'weeks';
+        $dayLabel  = $dayOfWeek === 1 ? 'day' : 'days';
+
+        $data['time'] = "{$weeks} {$weekLabel}, {$dayOfWeek} {$dayLabel}";
 
         return $this->sendResponse($data);
     }

@@ -59,4 +59,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(NormalPeople::class);
     }
+
+    public function emergencyContacts()
+    {
+        return $this->hasMany(EmergencyContact::class);
+    }
 }

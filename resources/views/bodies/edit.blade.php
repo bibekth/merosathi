@@ -65,8 +65,8 @@
                         <div class="mb-3">
                             <label class="form-label">References:</label>
                             <div id="reference-wrapper">
-                                @if ($data->references !== null && count(json_decode($data->references)) > 0)
-                                    @foreach (json_decode($data->references) as $item)
+                                @if ($data->references !== null && count($data->references) > 0)
+                                    @foreach ($data->references as $item)
                                         <div class="input-group mb-2">
                                             <input type="text" name="references[]" class="form-control"
                                                 value="{{ $item }}" placeholder="Enter reference">
