@@ -8,6 +8,8 @@ class Notification extends Model
 {
     protected $guarded = ['id'];
 
+    protected $hidden = ['created_at', 'updated_at'];
+
     public function user()
     {
         return $this->belongsTo(Notification::class);
