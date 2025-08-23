@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\API\ApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,5 +27,6 @@ Route::group(['namespace' => 'App\Http\Controllers\API', 'as' => 'api.'], functi
         Route::apiResource('articles', 'ArticleController')->only(['index', 'show']);
         Route::apiResource('body-changes', 'BodyChangeController')->only(['index', 'show']);
         Route::apiResource('weekly-baby-growth', 'WeeklyBabyGrowthController')->only(['index', 'show']);
+        Route::apiResource('notifications', 'NotificationController')->only(['index', 'show']);
     });
 });

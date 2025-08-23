@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\BodyChange;
+use App\Models\Notification;
 use App\Models\User;
 use App\Models\WeeklyBabyGrowth;
 use Carbon\Carbon;
@@ -106,6 +107,57 @@ class ApiController extends BaseController
 
         $data['time'] = "{$weeks} {$weekLabel}, {$dayOfWeek} {$dayLabel}";
 
+        $this->notification($weeks, $auth);
+
         return $this->sendResponse($data);
+    }
+
+    private function notification($week, $auth)
+    {
+        $weeks = [12, 16, 20, 28, 32, 34, 36, 38];
+
+        $titles = [
+            'First Visit',
+            'Second Visit',
+            'Third Visit',
+            'Fourth Visit',
+            'Fifth Visit',
+            'Sixth Visit',
+            'Seventh Visit',
+            'Eighth Visit',
+        ];
+
+        $descriptions = [
+            'Initial check-up: Confirm pregnancy, review medical history, perform physical exam, and basic blood/urine tests.',
+            'Routine check-up: Monitor blood pressure, weight, and baby’s growth. Screen for early complications.',
+            'Detailed ultrasound (anomaly scan): Check baby’s development, growth, and screen for structural conditions.',
+            'Glucose tolerance test & routine checks: Monitor for gestational diabetes, anemia, and assess baby’s growth.',
+            'Growth monitoring: Check baby’s position, heartbeat, and mother’s health status.',
+            'Follow-up growth & blood pressure monitoring: Ensure no signs of pre-eclampsia and assess baby’s movements.',
+            'Weekly visits start: Monitor baby’s heart rate, position, and mother’s readiness for delivery.',
+            'Final visit before due date: Ensure baby’s position is correct, check labor signs, and prepare for delivery.',
+        ];
+
+        // Get all eligible weeks <= given $week
+        $availableWeeks = array_filter($weeks, function ($w) use ($week) {
+            return $w <= $week;
+        });
+
+        foreach ($availableWeeks as $index => $availableWeek) {
+            // Check if already exists
+            $exists = Notification::where('user_id', $auth->id)
+                ->where('week', $availableWeek)
+                ->exists();
+
+            if (! $exists) {
+                Notification::create([
+                    'user_id'     => $auth->id,
+                    'week'        => $availableWeek,
+                    'title'       => $titles[$index],
+                    'description' => $descriptions[$index],
+                    'image' => null,
+                ]);
+            }
+        }
     }
 }
