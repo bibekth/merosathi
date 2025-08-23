@@ -43,32 +43,23 @@ class ApiController extends BaseController
 
     public function calculateDay(Request $request)
     {
-        // $validator = Validator::make($request->all(), [
-        //     'lmp' => 'date',
-        //     'weeks' => 'numeric'
-        // ]);
+        try {
+            $auth = User::find(Auth::id());
+            $person = $auth->person;
+            if ($request->filled('lmp')) {
+                $person->lmp = $request->lmp;
+                $endDate = Carbon::parse($request->lmp)->addWeeks(40);
+            } elseif ($request->filled('weeks')) {
+                $endDate = Carbon::parse(today())->subWeeks($request->weeks)->addWeeks(40);
+            }
 
-        // if (!$request->filled('lmp') && !$request->filled('weeks')) {
-        //     return $this->sendError('At least lmp or weeks field is required.', null, 422);
-        // }
+            $person->expected_date = $endDate->format('Y-m-d');
+            $person->save();
 
-        // if ($validator->fails()) {
-        //     return $this->validationError($validator);
-        // }
-
-        $auth = User::find(Auth::id());
-        $person = $auth->person;
-        if ($request->filled('lmp')) {
-            $person->lmp = $request->lmp;
-            $endDate = Carbon::parse($request->lmp)->addWeeks(40);
-        } elseif ($request->filled('weeks')) {
-            $endDate = Carbon::parse(today())->subWeeks($request->weeks)->addWeeks(40);
+            return $this->sendResponse(['deliver date' => $endDate->format('Y-m-d')]);
+        } catch (Throwable $e) {
+            return $this->sendError($e->getMessage(), null, 500);
         }
-
-        $person->expected_date = $endDate->format('Y-m-d');
-        $person->save();
-
-        return $this->sendResponse(['deliver date' => $endDate->format('Y-m-d')]);
     }
 
     public function main(Request $request)
@@ -113,58 +104,57 @@ class ApiController extends BaseController
     }
 
     private function notification($auth)
-{
-    // Always calculate week based on today's date
-    $today = today();
-    $expectedDate = Carbon::parse($auth->person->expected_date);
-    $pregnancyStartDate = $expectedDate->copy()->subWeeks(40);
-    $daysSinceStart = $pregnancyStartDate->diffInDays($today);
-    $currentWeek = floor($daysSinceStart / 7);
+    {
+        // Always calculate week based on today's date
+        $today = today();
+        $expectedDate = Carbon::parse($auth->person->expected_date);
+        $pregnancyStartDate = $expectedDate->copy()->subWeeks(40);
+        $daysSinceStart = $pregnancyStartDate->diffInDays($today);
+        $currentWeek = floor($daysSinceStart / 7);
 
-    $weeks = [12, 16, 20, 28, 32, 34, 36, 38];
+        $weeks = [12, 16, 20, 28, 32, 34, 36, 38];
 
-    $titles = [
-        'First Visit',
-        'Second Visit',
-        'Third Visit',
-        'Fourth Visit',
-        'Fifth Visit',
-        'Sixth Visit',
-        'Seventh Visit',
-        'Eighth Visit',
-    ];
+        $titles = [
+            'First Visit',
+            'Second Visit',
+            'Third Visit',
+            'Fourth Visit',
+            'Fifth Visit',
+            'Sixth Visit',
+            'Seventh Visit',
+            'Eighth Visit',
+        ];
 
-    $descriptions = [
-        'Initial check-up: Confirm pregnancy, review medical history, perform physical exam, and basic blood/urine tests.',
-        'Routine check-up: Monitor blood pressure, weight, and baby’s growth. Screen for early complications.',
-        'Detailed ultrasound (anomaly scan): Check baby’s development, growth, and screen for structural conditions.',
-        'Glucose tolerance test & routine checks: Monitor for gestational diabetes, anemia, and assess baby’s growth.',
-        'Growth monitoring: Check baby’s position, heartbeat, and mother’s health status.',
-        'Follow-up growth & blood pressure monitoring: Ensure no signs of pre-eclampsia and assess baby’s movements.',
-        'Weekly visits start: Monitor baby’s heart rate, position, and mother’s readiness for delivery.',
-        'Final visit before due date: Ensure baby’s position is correct, check labor signs, and prepare for delivery.',
-    ];
+        $descriptions = [
+            'Initial check-up: Confirm pregnancy, review medical history, perform physical exam, and basic blood/urine tests.',
+            'Routine check-up: Monitor blood pressure, weight, and baby’s growth. Screen for early complications.',
+            'Detailed ultrasound (anomaly scan): Check baby’s development, growth, and screen for structural conditions.',
+            'Glucose tolerance test & routine checks: Monitor for gestational diabetes, anemia, and assess baby’s growth.',
+            'Growth monitoring: Check baby’s position, heartbeat, and mother’s health status.',
+            'Follow-up growth & blood pressure monitoring: Ensure no signs of pre-eclampsia and assess baby’s movements.',
+            'Weekly visits start: Monitor baby’s heart rate, position, and mother’s readiness for delivery.',
+            'Final visit before due date: Ensure baby’s position is correct, check labor signs, and prepare for delivery.',
+        ];
 
-    // Only consider weeks up to today's current week
-    $availableWeeks = array_filter($weeks, function ($w) use ($currentWeek) {
-        return $w <= $currentWeek;
-    });
+        // Only consider weeks up to today's current week
+        $availableWeeks = array_filter($weeks, function ($w) use ($currentWeek) {
+            return $w <= $currentWeek;
+        });
 
-    foreach ($availableWeeks as $index => $availableWeek) {
-        $exists = Notification::where('user_id', $auth->id)
-            ->where('week', $availableWeek)
-            ->exists();
+        foreach ($availableWeeks as $index => $availableWeek) {
+            $exists = Notification::where('user_id', $auth->id)
+                ->where('week', $availableWeek)
+                ->exists();
 
-        if (! $exists) {
-            Notification::create([
-                'user_id'     => $auth->id,
-                'week'        => $availableWeek,
-                'title'       => $titles[$index],
-                'description' => $descriptions[$index],
-                'image'       => null,
-            ]);
+            if (! $exists) {
+                Notification::create([
+                    'user_id'     => $auth->id,
+                    'week'        => $availableWeek,
+                    'title'       => $titles[$index],
+                    'description' => $descriptions[$index],
+                    'image'       => null,
+                ]);
+            }
         }
     }
-}
-
 }
