@@ -56,7 +56,8 @@ class ApiController extends BaseController
             $person->expected_date = $endDate->format('Y-m-d');
             $person->save();
 
-            return $this->sendResponse(['deliver date' => $endDate->format('Y-m-d')]);
+            return response()->json($endDate->format('Y-m-d'), 200);
+            // return $this->sendResponse(['deliver date' => $endDate->format('Y-m-d')]);
         } catch (Throwable $e) {
             return $this->sendError($e->getMessage(), null, 500);
         }
