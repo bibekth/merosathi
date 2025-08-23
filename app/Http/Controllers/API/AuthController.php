@@ -38,7 +38,9 @@ class AuthController extends BaseController
         Auth::login($user);
         $token = $user->createToken($data['email'])->plainTextToken;
 
-        return $this->sendResponse(['token' => $token]);
+        $bool = $user->person->expected_date != null ? true : false;
+        
+        return $this->sendResponse(['token' => $token, 'calculated' => $bool]);
     }
 
     /**
@@ -107,7 +109,7 @@ class AuthController extends BaseController
             $auth->email = $request->email;
             $auth->save();
         }
-        
+
         return $this->sendResponse();
     }
 }

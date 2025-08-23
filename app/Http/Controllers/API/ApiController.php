@@ -43,18 +43,18 @@ class ApiController extends BaseController
 
     public function calculateDay(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'lmp' => 'date',
-            'weeks' => 'numeric'
-        ]);
+        // $validator = Validator::make($request->all(), [
+        //     'lmp' => 'date',
+        //     'weeks' => 'numeric'
+        // ]);
 
-        if (!$request->filled('lmp') && !$request->filled('weeks')) {
-            return $this->sendError('At least lmp or weeks field is required.', null, 422);
-        }
+        // if (!$request->filled('lmp') && !$request->filled('weeks')) {
+        //     return $this->sendError('At least lmp or weeks field is required.', null, 422);
+        // }
 
-        if ($validator->fails()) {
-            return $this->validationError($validator);
-        }
+        // if ($validator->fails()) {
+        //     return $this->validationError($validator);
+        // }
 
         $auth = User::find(Auth::id());
         $person = $auth->person;
