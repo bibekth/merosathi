@@ -121,7 +121,13 @@ public class LoginActivity extends AppCompatActivity {
                     assert user != null;
                     if(user.getSuccess()){
                         SharedPreferenceManager.saveToken(getApplicationContext(), user.getData().getToken());
-                        startActivity(mainIntent);
+
+                        if(user.getData().getCalculated()){
+                            startActivity(mainIntent);
+                        }else{
+                            Intent lmp = new Intent(LoginActivity.this, ChoosePregnancyInputActivity.class);
+                            startActivity(lmp);
+                        }
                     }else{
                         tvErrorMessage.setText("Something went wrong");
                         tvErrorMessage.setVisibility(View.VISIBLE);

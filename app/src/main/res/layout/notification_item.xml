@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/light_blue"
+    android:layout_width="match_parent"
+    android:padding="8dp"
+    android:layout_marginBottom="4dp"
+    android:layout_height="64dp">
+    <ImageView
+        android:id="@+id/ivNotificationImage"
+        android:layout_gravity="center"
+        android:src="@drawable/doctor_visit"
+        android:layout_marginEnd="8dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+        <TextView
+            android:id="@+id/tvNotificationTitle"
+            android:textSize="14sp"
+            android:textColor="@color/text_gray"
+            android:text="Notification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/tvNotificationDescription"
+            android:textSize="12sp"
+            android:textColor="@color/text_gray"
+            android:text="Notification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</LinearLayout>

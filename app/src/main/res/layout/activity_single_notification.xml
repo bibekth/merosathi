@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="8dp"
+    android:orientation="vertical"
     android:background="@color/off_white"
-    tools:context=".ArticleActivity">
+    tools:context=".SingleNotificationActivity">
 
     <LinearLayout
         android:id="@+id/clTopSection"
-        android:padding="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -40,14 +41,31 @@
 
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvBabyGrowth"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clTopSection" />
+        app:layout_constraintTop_toBottomOf="@+id/clTopSection">
+
+        <TextView
+            android:id="@+id/tvNotificationTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Notification"
+            android:textColor="@color/text_gray"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvNotificationDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Notification"
+            android:textColor="@color/text_gray"
+            android:textSize="14sp" />
+    </LinearLayout>
+
     <LinearLayout
         android:orientation="horizontal"
         android:id="@+id/llBottomNav"

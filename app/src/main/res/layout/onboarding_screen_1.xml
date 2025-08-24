@@ -1,0 +1,32 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/off_white"
+    android:padding="24dp">
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/logo"
+        android:contentDescription="Track Pregnancy"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Track Your Pregnancy"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_gray"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Monitor your pregnancy week by week and stay informed about your baby's growth."
+        android:textSize="16sp"
+        android:textColor="@color/text_gray"
+        android:gravity="center"/>
+</LinearLayout>

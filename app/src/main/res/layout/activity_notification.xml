@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="8dp"
     android:background="@color/off_white"
-    tools:context=".ArticleActivity">
+    tools:context=".NotificationActivity">
 
     <LinearLayout
         android:id="@+id/clTopSection"
-        android:padding="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -41,13 +41,14 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvBabyGrowth"
+        android:layout_marginTop="8dp"
+        android:id="@+id/rvNotification"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/clTopSection" />
+
     <LinearLayout
         android:orientation="horizontal"
         android:id="@+id/llBottomNav"

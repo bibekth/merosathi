@@ -1,5 +1,6 @@
 package com.example.merosathi;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -25,6 +26,7 @@ public class ProfileActivity extends AppCompatActivity {
     Button btnEditProfile;
     String token, bearerToken;
     ApiService apiService;
+    ImageView ivSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,8 @@ public class ProfileActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        ivSettings.setOnClickListener(v -> showSettingsDialog());
     }
 
     private void viewFinder() {
@@ -60,6 +64,7 @@ public class ProfileActivity extends AppCompatActivity {
         btnEditProfile = findViewById(R.id.btn_edit_profile);
         dob = findViewById(R.id.dob);
         btn_back = findViewById(R.id.btn_back);
+        ivSettings = findViewById(R.id.ivSettings);
     }
 
     private void intents() {
@@ -102,5 +107,29 @@ public class ProfileActivity extends AppCompatActivity {
     private void sharedPreference() {
         token = SharedPreferenceManager.getToken(getApplicationContext());
         bearerToken = SharedPreferenceManager.getBearerToken(getApplicationContext());
+    }
+    private void showSettingsDialog() {
+        String[] options = {"Change LMP / Pregnant Weeks", "Logout"};
+
+        new AlertDialog.Builder(this)
+                .setTitle("Settings")
+                .setItems(options, (dialog, which) -> {
+                    switch (which) {
+                        case 0:
+                            // Open your input activity (LMP or Weeks)
+                            Intent intent = new Intent(ProfileActivity.this, ChoosePregnancyInputActivity.class);
+                            startActivity(intent);
+                            break;
+                        case 1:
+                            // Logout logic
+                            SharedPreferenceManager.clearToken(getApplicationContext());
+                            Intent logoutIntent = new Intent(ProfileActivity.this, LoginActivity.class);
+                            logoutIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(logoutIntent);
+                            finish();
+                            break;
+                    }
+                })
+                .show();
     }
 }

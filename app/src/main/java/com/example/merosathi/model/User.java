@@ -29,10 +29,15 @@ public class User {
     }
 
     public static class Data {
+        Boolean calculated;
         String token, name, email;
         Integer id;
 
         Person person;
+
+        public Boolean getCalculated() {
+            return calculated;
+        }
 
         public Data() {
         }

@@ -16,6 +16,30 @@
         android:theme="@style/Theme.MeroSathi"
         tools:targetApi="31">
         <activity
+            android:name=".ShowDeliveryDateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EnterWeeksActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EnterLMPActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ChoosePregnancyInputActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PregnancyInputActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SingleNotificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".NotificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".OnboardingActivity"
+            android:exported="false" />
+        <activity
             android:name=".EditProfileActivity"
             android:exported="false" />
         <activity

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="32dp"
+    android:background="@color/light_blue"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:text="Do you know your Last Menstrual Period or Weeks Pregnant?"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:textColor="@color/text_gray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnLMP"
+        android:text="I know my LMP"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_shape"
+        android:textColor="@color/off_white"
+        android:textSize="16sp"
+        android:layout_marginTop="24dp"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnWeeks"
+        android:text="I know weeks pregnant"
+        android:background="@drawable/button_shape"
+        android:layout_width="match_parent"
+        android:textColor="@color/off_white"
+        android:textSize="16sp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"/>
+
+</LinearLayout>

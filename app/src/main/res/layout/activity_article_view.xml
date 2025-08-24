@@ -9,40 +9,74 @@
     tools:context=".ArticleViewActivity">
 
     <LinearLayout
-        android:orientation="vertical"
-        android:id="@+id/llLinearLayout"
+        android:id="@+id/clTopSection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ivProfileIcon"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:contentDescription="Profile Icon"
+            android:src="@drawable/female_icon" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/ivNotification"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:contentDescription="Calendar Icon"
+            android:padding="4dp"
+            android:src="@drawable/notification_icon"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="8dp"
+        android:id="@+id/llLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/clTopSection">
+
         <TextView
             android:id="@+id/tvTitle"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@color/text_gray"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_gray"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <LinearLayout
-            android:orientation="horizontal"
             android:id="@+id/llDoctor"
-            android:paddingVertical="8dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingVertical="8dp">
 
             <ImageView
                 android:id="@+id/ivDoctorAvatar"
-                android:src="@drawable/doctor"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:contentDescription="Doctor" />
+                android:contentDescription="Doctor"
+                android:src="@drawable/doctor" />
 
             <TextView
                 android:id="@+id/tvDoctorDescription"
-                android:textColor="@color/text_gray"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_gray" />
         </LinearLayout>
 
         <ImageView
@@ -52,10 +86,10 @@
 
         <TextView
             android:id="@+id/tvContent"
-            android:textColor="@color/text_gray"
-            android:textSize="14sp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_gray"
+            android:textSize="14sp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvSection"
@@ -63,12 +97,12 @@
             android:layout_height="wrap_content" />
 
         <TextView
-            android:text="References"
-            android:textSize="16sp"
-            android:paddingVertical="8dp"
-            android:textColor="@color/text_gray"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:paddingVertical="8dp"
+            android:text="References"
+            android:textColor="@color/text_gray"
+            android:textSize="16sp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvReferences"

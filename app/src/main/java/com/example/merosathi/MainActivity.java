@@ -13,24 +13,38 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.example.merosathi.adapter.SquareMainAdapter;
 import com.example.merosathi.adapter.WeekAdapter;
+import com.example.merosathi.model.MainModel;
+import com.example.merosathi.model.SquareItem;
+import com.example.merosathi.service.ApiService;
+import com.example.merosathi.service.RetrofitService;
+import com.example.merosathi.service.SharedPreferenceManager;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class MainActivity extends AppCompatActivity {
     Calendar currentWeekStart;
-    Intent babyGrowthIntent, bodyChangeIntent, articleIntent, profileIntent;
+    Intent babyGrowthIntent, bodyChangeIntent, articleIntent, profileIntent, notificationIntent;
     List<DateItem> dates = new ArrayList<>();
     LinearLayoutManager layoutManager;
-    RecyclerView weekRecyclerView;
+    RecyclerView weekRecyclerView, rvSquares;
     WeekAdapter weekAdapter;
-    TextView monthYearTextView;
+    TextView monthYearTextView, tvWeeks;
     LinearLayout llBabyGrowth, llBodyChange, llArticle;
-    ImageView ivProfileIcon;
+    ImageView ivProfileIcon, ivBabyGrowthImage, ivNotification;
+    String token, bearerToken, date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+    List<SquareItem> squareItems = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
         viewFinder();
         intents();
         horizontalRecycleHandler();
+        onClickEvents();
+        sharedPreference();
+        makeAPICall();
     }
 
     @Override
@@ -65,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        onClickEvents();
     }
 
     @Override
@@ -98,8 +114,9 @@ public class MainActivity extends AppCompatActivity {
 
         weekAdapter.setOnDateSelectedListener((dateItem, position) -> {
             // Handle date selection
-            Toast.makeText(MainActivity.this, "Selected: " + dateItem.getDayOfWeek() + ", " + dateItem.getDayOfMonth() + "/" + (dateItem.getMonth() + 1) + "/" + dateItem.getYear(), Toast.LENGTH_SHORT).show();
+            date = dateItem.getYear() + "-" + (dateItem.getMonth() + 1) + "-" + dateItem.getDayOfMonth();
             updateMonthYearHeader(dateItem.toCalendar());
+            makeAPICall();
         });
 
         // Implement scroll listener for dynamic loading or updating header
@@ -142,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Add dates starting from startDate
+        tempCalendar = (Calendar) startDate.clone();
         for (int i = 0; i <= daysAfter; i++) {
             dates.add(new DateItem(
                     dayOfWeekFormat.format(tempCalendar.getTime()),
@@ -188,6 +206,10 @@ public class MainActivity extends AppCompatActivity {
         llBodyChange = findViewById(R.id.llBodyChange);
         llArticle = findViewById(R.id.llArticle);
         ivProfileIcon = findViewById(R.id.ivProfileIcon);
+        tvWeeks = findViewById(R.id.tvWeeks);
+        ivBabyGrowthImage = findViewById(R.id.ivBabyGrowthImage);
+        rvSquares = findViewById(R.id.rvSquares);
+        ivNotification = findViewById(R.id.ivNotification);
     }
 
     private void onClickEvents() {
@@ -218,6 +240,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(profileIntent);
             }
         });
+
+        ivNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(notificationIntent);
+            }
+        });
     }
 
     private void intents() {
@@ -225,10 +254,88 @@ public class MainActivity extends AppCompatActivity {
         bodyChangeIntent = new Intent(this, BodyChangeActivity.class);
         articleIntent = new Intent(this, ArticleActivity.class);
         profileIntent = new Intent(this, ProfileActivity.class);
+        notificationIntent = new Intent(this, NotificationActivity.class);
     }
 
     private void makeAPICall()
     {
+        ApiService apiService = RetrofitService.getService(this).create(ApiService.class);
+        Call<MainModel> call = apiService.main(bearerToken, date);
+        call.enqueue(new Callback<MainModel>() {
+            @Override
+            public void onResponse(Call<MainModel> call, Response<MainModel> response) {
+                if(response.isSuccessful()) {
+                    MainModel mainModel = response.body();
+
+                    assert mainModel != null;
+
+                    tvWeeks.setText(mainModel.getData().getTime());
+
+                    if(mainModel.getData().getBaby_growth() != null) {
+                        String imageUrl = mainModel.getData().getBaby_growth().getBanner_image();
+
+                        assert imageUrl != null;
+
+                        Glide.with(MainActivity.this)
+                                .load(SharedPreferenceManager.getUrl() + imageUrl)
+                                .into(ivBabyGrowthImage);
+                    }
+
+                    squareItems.clear();
+                    
+                    if (mainModel.getData().getBody_change() != null) {
+                        squareItems.add(new SquareItem(
+                                mainModel.getData().getBody_change().getId(),
+                                mainModel.getData().getBody_change().getTitle(),
+                                mainModel.getData().getBody_change().getBanner_image(),
+                                "baby_growth"
+                        ));
+                    }
+
+                    if (mainModel.getData().getBaby_growth() != null) {
+                        squareItems.add(new SquareItem(
+                                mainModel.getData().getBaby_growth().getId(),
+                                mainModel.getData().getBaby_growth().getTitle(),
+                                mainModel.getData().getBaby_growth().getBanner_image(),
+                                "body_change"
+                        ));
+                    }
+
+                    squareBoxesAdapter();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MainModel> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void sharedPreference() {
+        token = SharedPreferenceManager.getToken(getApplicationContext());
+        bearerToken = SharedPreferenceManager.getBearerToken(getApplicationContext());
+    }
+
+    private void squareBoxesAdapter() {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        rvSquares.setLayoutManager(layoutManager);
+        SquareMainAdapter adapter = new SquareMainAdapter(this, squareItems, item -> {
+            Intent intent;
+            if (item.getType().equals("baby_growth")) {
+                intent = new Intent(MainActivity.this, BabyGrowthViewActivity.class);
+            } else if (item.getType().equals("body_change")) {
+                intent = new Intent(MainActivity.this, BodyChangeViewActivity.class);
+            } else {
+                return; // Unknown type, do nothing
+            }
+
+            // Pass the id as an extra
+            intent.putExtra("id", item.getId());
+            startActivity(intent);
+        });
+//        SquareMainAdapter adapter = new SquareMainAdapter(this, squareItems);
+        rvSquares.setAdapter(adapter);
 
     }
 }

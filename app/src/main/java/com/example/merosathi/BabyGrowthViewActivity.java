@@ -5,7 +5,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -38,8 +40,27 @@ public class BabyGrowthViewActivity extends AppCompatActivity {
         viewFinder();
         sharedPreference();
         fetchData();
+        topSection();
     }
+    private void topSection() {
+        ImageView ivProfileIcon = findViewById(R.id.ivProfileIcon);
+        ImageView ivNotification = findViewById(R.id.ivNotification);
+        Intent profileIntent = new Intent(this, ProfileActivity.class);
+        Intent notificationIntent = new Intent(this, NotificationActivity.class);
+        ivProfileIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(profileIntent);
+            }
+        });
 
+        ivNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(notificationIntent);
+            }
+        });
+    }
     @Override
     protected void onResume() {
         super.onResume();

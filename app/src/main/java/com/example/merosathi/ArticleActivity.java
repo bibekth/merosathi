@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -42,6 +43,7 @@ public class ArticleActivity extends AppCompatActivity {
         viewFinder();
         intents();
         fetchBodyChange();
+        topSection();
     }
 
     @Override
@@ -169,4 +171,23 @@ public class ArticleActivity extends AppCompatActivity {
         articleViewIntent = new Intent(this, ArticleViewActivity.class);
     }
 
+    private void topSection() {
+        ImageView ivProfileIcon = findViewById(R.id.ivProfileIcon);
+        ImageView ivNotification = findViewById(R.id.ivNotification);
+        Intent profileIntent = new Intent(this, ProfileActivity.class);
+        Intent notificationIntent = new Intent(this, NotificationActivity.class);
+        ivProfileIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(profileIntent);
+            }
+        });
+
+        ivNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(notificationIntent);
+            }
+        });
+    }
 }

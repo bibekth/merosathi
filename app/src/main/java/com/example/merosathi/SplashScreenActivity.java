@@ -34,7 +34,8 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         new Handler().postDelayed(() -> tvMeroSathi.setVisibility(View.VISIBLE), 1000);
 
-        Intent splashIntent = new Intent(this, LoginActivity.class);
+        Intent splashIntent = new Intent(this, OnboardingActivity.class);
+//        Intent splashIntent = new Intent(this, LoginActivity.class);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
