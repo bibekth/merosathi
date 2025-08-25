@@ -20,7 +20,7 @@ class ArticleController extends Controller
         if ($auth->hasrole('admin')) {
             $data = Article::with('user')->paginate(10);
         } elseif ($auth->hasrole('doctor')) {
-            $data = Article::with('user')->where('user_id', $auth->id)->paginate(2);
+            $data = Article::with('user')->where('user_id', $auth->id)->paginate(10);
         }
         return view('articles.index', ['data' => $data]);
     }

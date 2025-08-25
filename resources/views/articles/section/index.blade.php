@@ -5,8 +5,8 @@
         <div class="">
             <div class="add-new mb-3">
                 @hasrole('doctor')
-                    <a href="{{ route('article-sections.create', ['article_id' => $item->id]) }}"><button class="btn btn-sm btn-primary" id="add-new-btn"><i
-                                class="bi bi-plus-circle-fill"></i><span>
+                    <a href="{{ route('article-sections.create', ['article_id' => $item->id]) }}"><button
+                            class="btn btn-sm btn-primary" id="add-new-btn"><i class="bi bi-plus-circle-fill"></i><span>
                                 Add New</span></button></a>
                 @else
                     <div class=""><span>
@@ -82,6 +82,9 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="mt-3">
+                        {{ $data->links() }}
+                    </div>
                 </div>
             </div>
         </div>

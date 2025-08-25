@@ -38,7 +38,8 @@
                                         {{ \Illuminate\Support\Str::limit($item->description, 50) }}
                                     </td>
                                     <td>
-                                        <a href="{{ asset($item->banner_image) }}" target="__blank" title="Click to preview">
+                                        <a href="{{ asset($item->banner_image) }}" target="__blank"
+                                            title="Click to preview">
                                             <img src="{{ asset($item->banner_image) }}" alt="" height="30"
                                                 width="auto" />
                                         </a>
@@ -73,6 +74,9 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="mt-3">
+                        {{ $data->links() }}
+                    </div>
                 </div>
             </div>
         </div>
