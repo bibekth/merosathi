@@ -28,9 +28,6 @@
             android:name=".ChoosePregnancyInputActivity"
             android:exported="false" />
         <activity
-            android:name=".PregnancyInputActivity"
-            android:exported="false" />
-        <activity
             android:name=".SingleNotificationActivity"
             android:exported="false" />
         <activity

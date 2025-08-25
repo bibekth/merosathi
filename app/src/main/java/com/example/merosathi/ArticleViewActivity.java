@@ -70,7 +70,7 @@ public class ArticleViewActivity extends AppCompatActivity {
 
     private void fetchData() {
         ApiService apiService = RetrofitService.getService(this).create(ApiService.class);
-        Call<Article> call = apiService.articleShow(bearerToken, 1);
+        Call<Article> call = apiService.articleShow(bearerToken, id);
 
         call.enqueue(new Callback<Article>() {
             @SuppressLint("NotifyDataSetChanged")

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -37,6 +38,8 @@ public class BabyGrowthViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_baby_growth_view);
 
+
+        id = getIntent().getIntExtra("id", 1);
         viewFinder();
         sharedPreference();
         fetchData();
@@ -64,8 +67,6 @@ public class BabyGrowthViewActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-        id = getIntent().getIntExtra("id", 1);
     }
 
     private void viewFinder() {
@@ -84,7 +85,7 @@ public class BabyGrowthViewActivity extends AppCompatActivity {
 
     private void fetchData() {
         ApiService apiService = RetrofitService.getService(this).create(ApiService.class);
-        Call<BabyGrowth> call = apiService.babyGrowthShow(bearerToken, 1);
+        Call<BabyGrowth> call = apiService.babyGrowthShow(bearerToken, id);
 
         call.enqueue(new Callback<BabyGrowth>() {
             @SuppressLint("NotifyDataSetChanged")
