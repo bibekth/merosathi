@@ -9,10 +9,11 @@
     <ImageView
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:src="@drawable/home_icon"
+        android:src="@drawable/image4"
         android:contentDescription="Pregnancy Tips"/>
 
     <TextView
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -25,7 +26,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:text="Receive expert tips and recommendations to ensure a smooth and safe pregnancy journey."
+        android:text="Mero Saathi sends reminder notifications in each trimester, encouraging pregnant women to visit their doctor on time.
+It also provides trusted pregnancy articles written by qualified doctors to keep you informed and supported."
         android:textSize="16sp"
         android:textColor="@color/text_gray"
         android:gravity="center"/>

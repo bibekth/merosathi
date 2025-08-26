@@ -9,14 +9,14 @@
     <ImageView
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:src="@drawable/body_change"
+        android:src="@drawable/image3"
         android:contentDescription="Body Changes"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Track Body Changes"
+        android:text="TRACK BODY CHANGES"
         android:textSize="22sp"
         android:textStyle="bold"
         android:textColor="@color/text_gray"/>
@@ -25,7 +25,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:text="Understand your body changes week by week and get helpful tips for a healthy pregnancy."
+        android:text="In this app, you can explore how your body changes during each week of pregnancy from week 3 to 42.
+You’ll also find information about common symptoms and challenges you may experience each week."
         android:textSize="16sp"
         android:textColor="@color/text_gray"
         android:gravity="center"/>

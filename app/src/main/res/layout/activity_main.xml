@@ -90,23 +90,25 @@
         <LinearLayout
             android:orientation="vertical"
             android:background="@color/light_blue"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="360dp">
 
             <ImageView
                 android:id="@+id/ivBabyGrowthImage"
                 android:layout_width="match_parent"
-                android:layout_height="360dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:padding="120dp"
                 android:src="@drawable/home_icon" />
 
             <TextView
                 android:gravity="center"
                 android:id="@+id/tvWeeks"
-                android:textSize="14sp"
+                android:textSize="20sp"
                 android:paddingBottom="8dp"
-                android:textColor="@color/text_gray"
+                android:textColor="@color/primary_blue"
+                android:textStyle="bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
