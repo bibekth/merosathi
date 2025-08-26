@@ -23,6 +23,7 @@ Route::group(['namespace' => 'App\Http\Controllers\API', 'as' => 'api.'], functi
             Route::post('github-webhooks', 'githubWebhook')->withoutMiddleware('api');
             Route::post('calculate', 'calculateDay')->name('calculate.days');
             Route::get('main', 'main')->name('main');
+            Route::post('liked', 'liked')->name('liked');
         });
         Route::apiResource('articles', 'ArticleController')->only(['index', 'show']);
         Route::apiResource('body-changes', 'BodyChangeController')->only(['index', 'show']);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\BodyChange;
+use App\Models\Like;
 use App\Models\Notification;
 use App\Models\User;
 use App\Models\WeeklyBabyGrowth;
@@ -155,6 +156,26 @@ class ApiController extends BaseController
                     'description' => $descriptions[$index],
                     'image'       => null,
                 ]);
+            }
+        }
+    }
+
+    public function liked(Request $request)
+    {
+        $likeableTypes = ['article_id', 'weekly_baby_growth_id', 'body_change_id'];
+
+        foreach ($likeableTypes as $type) {
+            if ($request->filled($type)) {
+                if ($request->liked) {
+                    Like::firstOrCreate([
+                        'user_id' => Auth::id(),
+                        $type     => $request->$type,
+                    ]);
+                } else {
+                    Like::where('user_id', Auth::id())
+                        ->where($type, $request->$type)
+                        ->delete();
+                }
             }
         }
     }
