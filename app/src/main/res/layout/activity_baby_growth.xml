@@ -72,7 +72,6 @@
             android:layout_height="match_parent">
             <ImageView
                 android:background="@color/white"
-                android:padding="12dp"
                 android:src="@drawable/home_icon"
                 android:layout_width="64dp"
                 android:layout_height="64dp" />
