@@ -179,6 +179,6 @@ class ApiController extends BaseController
             }
         }
 
-        return response()->json(['message' => 'success'], 200);
+        return response()->json("success", 200);
     }
 }
