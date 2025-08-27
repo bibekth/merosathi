@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Article extends Model
 {
@@ -13,11 +14,6 @@ class Article extends Model
     ];
 
     protected $hidden = ['created_at', 'updated_at'];
-
-    // protected function getBannerImageAttribute($value)
-    // {
-    //     return $value ? config('app.url') . $value : null;
-    // }
 
     public function user()
     {
@@ -32,5 +28,15 @@ class Article extends Model
     public function liked()
     {
         return $this->hasMany(Like::class);
+    }
+
+    protected $appends = ['liked']; // automatically include in JSON
+
+    public function getLikedAttribute()
+    {
+        $user = Auth::user();
+        if (!$user) return false;
+
+        return $this->likes()->where('user_id', $user->id)->exists();
     }
 }

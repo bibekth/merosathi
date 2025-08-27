@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class BodyChange extends Model
 {
@@ -22,5 +23,15 @@ class BodyChange extends Model
     public function liked()
     {
         return $this->hasMany(Like::class);
+    }
+
+    protected $appends = ['liked']; // automatically include in JSON
+
+    public function getLikedAttribute()
+    {
+        $user = Auth::user();
+        if (!$user) return false;
+
+        return $this->likes()->where('user_id', $user->id)->exists();
     }
 }
