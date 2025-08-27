@@ -48,7 +48,9 @@
         android:clipToPadding="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clTopSection" />
+        app:layout_constraintTop_toBottomOf="@+id/clTopSection"
+        app:layout_constraintBottom_toTopOf="@+id/llBottomNav" />
+
     <LinearLayout
         android:orientation="horizontal"
         android:id="@+id/llBottomNav"
