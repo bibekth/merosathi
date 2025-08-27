@@ -72,6 +72,7 @@
             android:layout_height="match_parent">
             <ImageView
                 android:src="@drawable/home_icon"
+                android:padding="8dp"
                 android:layout_width="64dp"
                 android:layout_height="64dp" />
             <TextView
@@ -92,6 +93,7 @@
             android:layout_height="match_parent">
             <ImageView
                 android:src="@drawable/baby_growth"
+                android:padding="8dp"
                 android:layout_width="64dp"
                 android:layout_height="64dp" />
             <TextView
@@ -113,6 +115,7 @@
             android:layout_height="match_parent">
             <ImageView
                 android:src="@drawable/body_change"
+                android:padding="8dp"
                 android:layout_width="64dp"
                 android:layout_height="64dp" />
             <TextView
@@ -133,6 +136,7 @@
             android:layout_height="match_parent">
             <ImageView
                 android:src="@drawable/article_icon"
+                android:padding="8dp"
                 android:layout_width="64dp"
                 android:layout_height="64dp" />
             <TextView
