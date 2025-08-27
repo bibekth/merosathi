@@ -16,6 +16,9 @@
         android:theme="@style/Theme.MeroSathi"
         tools:targetApi="31">
         <activity
+            android:name=".FeatureActivity"
+            android:exported="false" />
+        <activity
             android:name=".ShowDeliveryDateActivity"
             android:exported="false" />
         <activity

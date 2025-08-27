@@ -80,9 +80,10 @@
 
     <ScrollView
         app:layout_constraintTop_toBottomOf="@+id/llUpperLinearLayout"
+        app:layout_constraintBottom_toTopOf="@+id/llBottomNav"
         android:id="@+id/svContents"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="0dp" >
 
         <LinearLayout
             android:orientation="vertical"
@@ -128,6 +129,7 @@
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
+                android:visibility="visible"
                 android:id="@+id/rvSquares"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -137,7 +139,128 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/llMiddleLinearLayout" />
 
+            <HorizontalScrollView
+                android:padding="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:overScrollMode="never">
+                <LinearLayout
+                android:id="@+id/llFeatures"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/llFeatureOne"
+                    android:orientation="vertical"
+                    android:background="@drawable/button_shape"
+                    android:padding="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp">
+
+                    <TextView
+                        android:id="@+id/tvTitleOne"
+                        android:text="🤰 Common Problems and Solutions During Pregnancy"
+                        android:textSize="14sp"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:textColor="@color/text_gray"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <ImageView
+                        android:src="@drawable/feature_one"
+                        android:id="@+id/ivImageOne"
+                        android:backgroundTint="@color/light_blue"
+                        android:layout_width="match_parent"
+                        android:layout_height="112dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llFeatureTwo"
+                    android:orientation="vertical"
+                    android:background="@drawable/button_shape"
+                    android:padding="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp">
+
+                    <TextView
+                        android:id="@+id/tvTitleTwo"
+                        android:text="🥦 Diet and Nutrition During Pregnancy"
+                        android:textSize="14sp"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:textColor="@color/text_gray"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <ImageView
+                        android:id="@+id/ivImageTwo"
+                        android:src="@drawable/feature_two"
+                        android:backgroundTint="@color/light_blue"
+                        android:layout_width="match_parent"
+                        android:layout_height="112dp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/llFeatureThree"
+                    android:orientation="vertical"
+                    android:background="@drawable/button_shape"
+                    android:padding="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp">
+
+                    <TextView
+                        android:id="@+id/tvTitleThree"
+                        android:text="🏥 When to Visit the Doctor During Pregnancy (ANC Schedule in Nepal)"
+                        android:textSize="14sp"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:textColor="@color/text_gray"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <ImageView
+                        android:id="@+id/ivImageThree"
+                        android:src="@drawable/feature_three"
+                        android:backgroundTint="@color/light_blue"
+                        android:layout_width="match_parent"
+                        android:layout_height="112dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llFeatureFour"
+                    android:orientation="vertical"
+                    android:background="@drawable/button_shape"
+                    android:padding="8dp"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp">
+
+                    <TextView
+                        android:id="@+id/tvTitleFour"
+                        android:text="🧘‍♀️ Yoga and Exercise During Pregnancy"
+                        android:textSize="14sp"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:textColor="@color/text_gray"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <ImageView
+                        android:id="@+id/ivImageFour"
+                        android:src="@drawable/feature_four"
+                        android:backgroundTint="@color/light_blue"
+                        android:layout_width="match_parent"
+                        android:layout_height="112dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            </HorizontalScrollView>
             <androidx.recyclerview.widget.RecyclerView
+                android:visibility="gone"
                 android:id="@+id/rvFeatures"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
