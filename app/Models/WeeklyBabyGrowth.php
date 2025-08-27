@@ -32,6 +32,6 @@ class WeeklyBabyGrowth extends Model
         $user = Auth::user();
         if (!$user) return false;
 
-        return $this->likes()->where('user_id', $user->id)->exists();
+        return $this->liked()->where('user_id', $user->id)->exists();
     }
 }
