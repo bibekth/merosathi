@@ -162,23 +162,27 @@ class ApiController extends BaseController
 
     public function liked(Request $request)
     {
-        $likeableTypes = ['article_id', 'weekly_baby_growth_id', 'body_change_id'];
+        try {
+            $likeableTypes = ['article_id', 'weekly_baby_growth_id', 'body_change_id'];
 
-        foreach ($likeableTypes as $type) {
-            if ($request->filled($type)) {
-                if ($request->liked) {
-                    Like::firstOrCreate([
-                        'user_id' => Auth::id(),
-                        $type     => $request->$type,
-                    ]);
-                } else {
-                    Like::where('user_id', Auth::id())
-                        ->where($type, (int) $request->$type)
-                        ->delete();
+            foreach ($likeableTypes as $type) {
+                if ($request->filled($type)) {
+                    if ($request->liked) {
+                        Like::firstOrCreate([
+                            'user_id' => Auth::id(),
+                            $type     => $request->$type,
+                        ]);
+                    } else {
+                        Like::where('user_id', Auth::id())
+                            ->where($type, (int) $request->$type)
+                            ->delete();
+                    }
                 }
             }
-        }
 
-        return response()->json("success", 200);
+            return response()->json("success", 200);
+        } catch (Throwable $e) {
+            return $this->sendServerError($e->getMessage());
+        }
     }
 }
