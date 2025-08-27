@@ -41,6 +41,7 @@ public class ArticleViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_view);
 
+        id = getIntent().getIntExtra("id", 1);
         sharedPreference();
         viewFinder();
         fetchData();
@@ -49,8 +50,6 @@ public class ArticleViewActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-        id = getIntent().getIntExtra("id", 1);
     }
 
     private void viewFinder() {

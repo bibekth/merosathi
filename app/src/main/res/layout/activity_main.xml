@@ -78,53 +78,74 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/llMiddleLinearLayout"
+    <ScrollView
+        app:layout_constraintTop_toBottomOf="@+id/llUpperLinearLayout"
+        android:id="@+id/svContents"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/llUpperLinearLayout">
+        android:layout_height="wrap_content" >
 
         <LinearLayout
             android:orientation="vertical"
-            android:background="@color/light_blue"
-            android:layout_gravity="center"
-            android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="360dp">
+            android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/ivBabyGrowthImage"
+            <LinearLayout
+                android:id="@+id/llMiddleLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@drawable/home_icon" />
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/llUpperLinearLayout">
 
-            <TextView
-                android:gravity="center"
-                android:id="@+id/tvWeeks"
-                android:textSize="20sp"
-                android:paddingBottom="8dp"
-                android:textColor="@color/primary_blue"
-                android:textStyle="bold"
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:background="@color/light_blue"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="360dp">
+
+                    <ImageView
+                        android:id="@+id/ivBabyGrowthImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/home_icon" />
+
+                    <TextView
+                        android:gravity="center"
+                        android:id="@+id/tvWeeks"
+                        android:textSize="20sp"
+                        android:paddingBottom="8dp"
+                        android:textColor="@color/primary_blue"
+                        android:textStyle="bold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvSquares"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/llMiddleLinearLayout" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvFeatures"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:orientation="horizontal" />
         </LinearLayout>
+    </ScrollView>
 
-
-    </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvSquares"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/llMiddleLinearLayout" />
 
     <LinearLayout
         android:orientation="horizontal"
