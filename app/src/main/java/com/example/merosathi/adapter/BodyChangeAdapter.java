@@ -1,6 +1,7 @@
 package com.example.merosathi.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +14,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.merosathi.R;
 import com.example.merosathi.model.BodyChangeList;
+import com.example.merosathi.service.ApiService;
+import com.example.merosathi.service.RetrofitService;
 import com.example.merosathi.service.SharedPreferenceManager;
 
 import java.util.ArrayList;
 import java.util.Objects;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class BodyChangeAdapter extends RecyclerView.Adapter<BodyChangeAdapter.ViewHolder> {
     Context context;
@@ -49,6 +56,11 @@ public class BodyChangeAdapter extends RecyclerView.Adapter<BodyChangeAdapter.Vi
                     .load(SharedPreferenceManager.getUrl() + imageUrl)
                     .into(holder.ivBanner);
         }
+        if(currentData.isLiked()){
+            holder.ivLiked.setImageResource(R.drawable.liked);
+        } else {
+            holder.ivLiked.setImageResource(R.drawable.unliked);
+        }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +70,36 @@ public class BodyChangeAdapter extends RecyclerView.Adapter<BodyChangeAdapter.Vi
                 }
             }
         });
+
+        holder.ivLiked.setOnClickListener(v -> {
+            ApiService apiService = RetrofitService.getService(context).create(ApiService.class);
+            boolean newLikeState = !currentData.isLiked();
+
+            Call<String> call = apiService.like(
+                    SharedPreferenceManager.getBearerToken(context),
+                    newLikeState,
+                    null,
+                    null,
+                    currentData.getId()
+            );
+            call.enqueue(new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    if(response.isSuccessful()){
+                        // Update model
+                        currentData.setLiked(newLikeState);
+
+                        // Update UI
+                        holder.ivLiked.setImageResource(newLikeState ? R.drawable.liked : R.drawable.unliked);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+                    Log.e("ArticleAdapter", "Like API failed", t);
+                }
+            });
+        });
     }
 
     @Override
@@ -66,7 +108,7 @@ public class BodyChangeAdapter extends RecyclerView.Adapter<BodyChangeAdapter.Vi
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView ivBanner;
+        ImageView ivBanner, ivLiked;
         TextView tvTitle, tvDescription;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -74,6 +116,7 @@ public class BodyChangeAdapter extends RecyclerView.Adapter<BodyChangeAdapter.Vi
             ivBanner = itemView.findViewById(R.id.ivBabyGrowthImage);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvDescription = itemView.findViewById(R.id.tvDescription);
+            ivLiked = itemView.findViewById(R.id.ivLiked);
         }
     }
 

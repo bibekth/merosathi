@@ -80,4 +80,7 @@ public interface ApiService {
             @FieldMap Map<String, Object> fields
     );
 
+    @FormUrlEncoded
+    @POST("api/liked")
+    Call<String> like(@Header("Authorization") String token, @Field("liked") Boolean liked, @Field("article_id") Integer articleId, @Field("weekly_baby_growth_id") Integer babyGrowthId, @Field("body_change_id") Integer bodyChangeId);
 }

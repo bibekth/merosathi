@@ -76,6 +76,7 @@
                 android:layout_width="64dp"
                 android:layout_height="64dp" />
             <TextView
+                android:visibility="gone"
                 android:textColor="@color/text_gray"
                 android:text="Home"
                 android:layout_width="wrap_content"
@@ -95,6 +96,7 @@
                 android:layout_width="64dp"
                 android:layout_height="64dp" />
             <TextView
+                android:visibility="gone"
                 android:id="@+id/tvBabyGrowth"
                 android:textColor="@color/text_gray"
                 android:text="Baby Growth"
@@ -115,6 +117,7 @@
                 android:layout_width="64dp"
                 android:layout_height="64dp" />
             <TextView
+                android:visibility="gone"
                 android:text="Body Change"
                 android:textColor="@color/text_gray"
                 android:layout_width="wrap_content"
@@ -134,6 +137,7 @@
                 android:layout_width="64dp"
                 android:layout_height="64dp" />
             <TextView
+                android:visibility="gone"
                 android:text="Articles"
                 android:textColor="@color/text_gray"
                 android:layout_width="wrap_content"

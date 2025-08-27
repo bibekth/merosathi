@@ -25,7 +25,16 @@ public class ArticleList {
     public static class Data {
         Integer id;
         String title, banner_image, description;
+        private Boolean liked; // add this
+        // existing fields: id, title, description, etc.
 
+        public Boolean isLiked() {
+            return liked != null && liked;
+        }
+
+        public void setLiked(Boolean liked) {
+            this.liked = liked;
+        }
         public Data() {
         }
 

@@ -22,33 +22,45 @@
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
         app:layout_constraintStart_toEndOf="@id/ivBabyGrowthImage"
-        android:gravity="center"
+        app:layout_constraintEnd_toStartOf="@id/ivLiked"
         app:layout_constraintTop_toTopOf="parent"
-        android:orientation="vertical">
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
             android:id="@+id/tvTitle"
-            android:textSize="16sp"
-            android:maxLines="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:ellipsize="end"
+            android:maxLines="1"
             android:text="Hello There!"
             android:textColor="@color/text_gray"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tvDescription"
-            android:textSize="12sp"
-            android:maxLines="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:ellipsize="end"
+            android:maxLines="1"
             android:text="Descriptionssssss!"
             android:textColor="@color/text_gray"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:textSize="12sp" />
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivLiked"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:padding="4dp"
+        android:clickable="true"
+        android:src="@drawable/unliked"
+        android:contentDescription="like button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

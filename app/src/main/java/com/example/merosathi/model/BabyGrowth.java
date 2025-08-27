@@ -25,7 +25,16 @@ public class BabyGrowth {
         Integer order;
         ArrayList<String> references;
         BabyGrowthUser user;
+        private Boolean liked; // add this
+        // existing fields: id, title, description, etc.
 
+        public Boolean isLiked() {
+            return liked != null && liked;
+        }
+
+        public void setLiked(Boolean liked) {
+            this.liked = liked;
+        }
         public Integer getId() {
             return id;
         }
