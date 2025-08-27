@@ -173,7 +173,7 @@ class ApiController extends BaseController
                     ]);
                 } else {
                     Like::where('user_id', Auth::id())
-                        ->where($type, $request->$type)
+                        ->where($type, (int) $request->$type)
                         ->delete();
                 }
             }
