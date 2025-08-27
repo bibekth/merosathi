@@ -14,10 +14,10 @@ class Article extends Model
 
     protected $hidden = ['created_at', 'updated_at'];
 
-    protected function getBannerImageAttribute($value)
-    {
-        return $value ? config('app.url') . $value : null;
-    }
+    // protected function getBannerImageAttribute($value)
+    // {
+    //     return $value ? config('app.url') . $value : null;
+    // }
 
     public function user()
     {
@@ -27,5 +27,10 @@ class Article extends Model
     public function sections()
     {
         return $this->hasMany(ArticleSection::class);
+    }
+
+    public function liked()
+    {
+        return $this->hasMany(Like::class);
     }
 }

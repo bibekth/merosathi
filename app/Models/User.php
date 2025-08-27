@@ -69,4 +69,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Notification::class);
     }
+
+    public function liked()
+    {
+        return $this->hasMany(Like::class);
+    }
 }
